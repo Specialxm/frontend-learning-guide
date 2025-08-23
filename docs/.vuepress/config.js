@@ -12,7 +12,8 @@ module.exports = {
       { text: '首页', link: '/' },
       { text: 'HTML', link: '/html/' },
       { text: 'CSS', link: '/css/' },
-      { text: 'JavaScript', link: '/javascript/' }
+      { text: 'JavaScript', link: '/javascript/' },
+      { text: 'Vue 3.0', link: '/vue3/' }
     ],
     
     sidebar: {
@@ -60,6 +61,33 @@ module.exports = {
             '/javascript/events',
             '/javascript/es6',
             '/javascript/async'
+          ]
+        }
+      ],
+      '/vue3/': [
+        {
+          title: 'Vue 3.0 基础学习',
+          collapsable: false,
+          children: [
+            '/vue3/',
+            '/vue3/introduction',
+            '/vue3/quick-start',
+            '/vue3/template-syntax',
+            '/vue3/composition-api',
+            '/vue3/reactive-fundamentals',
+            '/vue3/components',
+            '/vue3/advanced-features',
+            '/vue3/summary'
+          ]
+        },
+        {
+          title: 'Vue 3.0 源码深度解析',
+          collapsable: false,
+          children: [
+            '/vue3/source-code-analysis',
+            '/vue3/composition-api-source',
+            '/vue3/compiler-runtime-optimization',
+            '/vue3/advanced-features-source'
           ]
         }
       ]
