@@ -1,31 +1,96 @@
 # Dependencies
 node_modules/
-.pnpm-store/
-
-# Build output
-docs/.vuepress/dist/
-docs/.vuepress/.temp/
-docs/.vuepress/.cache/
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Editor directories and files
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Logs
+logs
+*.log
+
+# VuePress build output
+docs/.vuepress/dist/
+docs/.vuepress/.cache/
+docs/.vuepress/.temp/
+
+# IDE files
 .vscode/
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+*.swp
+*.swo
+*~
 
 # OS generated files
 .DS_Store
@@ -36,7 +101,10 @@ pnpm-debug.log*
 ehthumbs.db
 Thumbs.db
 
-# VuePress
-.vuepress/.temp/
-.vuepress/.cache/
-.vuepress/dist/ 
+# Windows
+$RECYCLE.BIN/
+Desktop.ini
+
+# Build artifacts
+build/
+dist/

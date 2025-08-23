@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 
 permissions:
@@ -47,10 +47,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
             
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
         
       - name: Build
-        run: pnpm build
+        run: npm run build
         
       - name: Setup Pages
         uses: actions/configure-pages@v4

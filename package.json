@@ -7,7 +7,7 @@
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
     "clean": "vuepress clean docs",
-    "deploy": "pnpm build && gh-pages -d docs/.vuepress/dist"
+    "deploy": "npm run build && gh-pages -d docs/.vuepress/dist"
   },
   "keywords": [
     "frontend",
@@ -21,8 +21,15 @@
   "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
-    "vuepress": "^1.9.10",
-    "gh-pages": "^6.3.0"
+    "@vuepress/plugin-back-to-top": "^1.9.10",
+    "@vuepress/plugin-medium-zoom": "^1.9.10",
+    "gh-pages": "^6.3.0",
+    "vuepress": "^1.9.10"
   },
-  "packageManager": "pnpm@8.0.0"
-} 
+  "dependencies": {
+    "moment": "^2.30.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
