@@ -1,369 +1,333 @@
-# JavaScript 对象编程 🏗️
+# JavaScript 对象编程
 
-对象是JavaScript中最重要的数据类型，它允许我们将相关的数据和功能组织在一起。
+对象是JavaScript中最重要的数据类型之一，它允许我们将相关的数据和功能组织在一起。
 
-## 🎯 对象基础
+## 对象基础
 
-### 1. 对象字面量
+### 1. 创建对象
 ```javascript
-// 创建对象
+// 对象字面量
 const person = {
     name: "张三",
     age: 25,
-    city: "北京",
-    greet: function() {
-        return `你好，我是${this.name}`;
-    }
+    city: "北京"
 };
 
-// 访问属性
-console.log(person.name);        // 张三
-console.log(person["age"]);      // 25
-console.log(person.greet());     // 你好，我是张三
+// 构造函数
+const car = new Object();
+car.brand = "丰田";
+car.model = "凯美瑞";
+car.year = 2020;
+
+// Object.create() 方法
+const animal = Object.create(null);
+animal.type = "猫";
+animal.color = "白色";
 ```
 
-### 2. 构造函数
+### 2. 访问和修改属性
 ```javascript
-// 构造函数（首字母大写）
-function Person(name, age, city) {
-    this.name = name;
-    this.age = age;
-    this.city = city;
-    this.greet = function() {
-        return `你好，我是${this.name}`;
-    };
-}
+const user = {
+    name: "李四",
+    age: 30,
+    email: "lisi@example.com"
+};
 
-// 创建实例
-const person1 = new Person("李四", 30, "上海");
-const person2 = new Person("王五", 28, "广州");
+// 点语法访问
+console.log(user.name);        // 李四
+console.log(user.age);         // 30
 
-console.log(person1.greet()); // 你好，我是李四
-console.log(person2.greet()); // 你好，我是王五
-```
+// 方括号语法访问
+console.log(user["name"]);     // 李四
+console.log(user["age"]);      // 30
 
-### 3. 类语法 (ES6)
-```javascript
-class Person {
-    constructor(name, age, city) {
-        this.name = name;
-        this.age = age;
-        this.city = city;
-    }
-    
-    greet() {
-        return `你好，我是${this.name}`;
-    }
-    
-    getInfo() {
-        return `${this.name}，${this.age}岁，来自${this.city}`;
-    }
-}
-
-const person = new Person("赵六", 32, "深圳");
-console.log(person.greet());   // 你好，我是赵六
-console.log(person.getInfo()); // 赵六，32岁，来自深圳
-```
-
-## 🔧 对象操作
-
-### 1. 属性操作
-```javascript
-const user = { name: "张三", age: 25 };
-
-// 添加属性
-user.email = "zhangsan@example.com";
-user["phone"] = "13800138000";
+// 动态属性名
+const propertyName = "email";
+console.log(user[propertyName]); // lisi@example.com
 
 // 修改属性
-user.age = 26;
+user.age = 31;
+user["city"] = "上海";
 
-// 删除属性
-delete user.phone;
-
-// 检查属性是否存在
-console.log("name" in user);           // true
-console.log(user.hasOwnProperty("age")); // true
+// 添加新属性
+user.phone = "13800138000";
 ```
 
-### 2. 对象方法
+## 对象方法
+
+### 1. 定义方法
 ```javascript
 const calculator = {
     add: function(a, b) {
         return a + b;
     },
     
-    subtract(a, b) {  // 简写语法
+    subtract: function(a, b) {
         return a - b;
     },
     
-    multiply: (a, b) => a * b,  // 箭头函数
+    // 简写语法 (ES6)
+    multiply(a, b) {
+        return a * b;
+    },
     
     divide(a, b) {
-        if (b === 0) {
-            throw new Error("除数不能为零");
-        }
         return a / b;
     }
 };
 
+// 使用方法
 console.log(calculator.add(5, 3));      // 8
 console.log(calculator.subtract(10, 4)); // 6
-console.log(calculator.multiply(2, 6));  // 12
-console.log(calculator.divide(15, 3));   // 5
+console.log(calculator.multiply(6, 7));  // 42
 ```
 
-### 3. 对象遍历
+### 2. this 关键字
 ```javascript
 const person = {
-    name: "张三",
-    age: 25,
-    city: "北京",
-    hobby: "编程"
+    name: "王五",
+    age: 28,
+    
+    greet() {
+        console.log(`你好，我是${this.name}，今年${this.age}岁`);
+    },
+    
+    birthday() {
+        this.age++;
+        console.log(`生日快乐！现在${this.age}岁了`);
+    }
 };
 
-// 遍历键
-for (let key in person) {
-    console.log(`${key}: ${person[key]}`);
-}
-
-// 获取所有键
-console.log(Object.keys(person));     // ['name', 'age', 'city', 'hobby']
-
-// 获取所有值
-console.log(Object.values(person));   // ['张三', 25, '北京', '编程']
-
-// 获取所有键值对
-console.log(Object.entries(person));  // [['name', '张三'], ['age', 25], ...]
+person.greet();     // 你好，我是王五，今年28岁
+person.birthday();  // 生日快乐！现在29岁了
+person.greet();     // 你好，我是王五，今年29岁
 ```
 
-## 🏗️ 继承和原型
+## 对象高级特性
 
-### 1. 原型链
+### 1. 属性描述符
 ```javascript
-function Animal(name) {
+const config = {};
+
+Object.defineProperty(config, 'apiKey', {
+    value: 'abc123',
+    writable: false,        // 不可写
+    enumerable: false,      // 不可枚举
+    configurable: false     // 不可配置
+});
+
+// 尝试修改
+config.apiKey = 'newKey';   // 无效
+console.log(config.apiKey); // abc123
+
+// 检查属性描述符
+const descriptor = Object.getOwnPropertyDescriptor(config, 'apiKey');
+console.log(descriptor);
+```
+
+### 2. 原型和继承
+```javascript
+// 构造函数
+function Animal(name, species) {
     this.name = name;
+    this.species = species;
 }
 
+// 原型方法
 Animal.prototype.speak = function() {
-    return `${this.name}发出声音`;
+    console.log(`${this.name}是一只${this.species}`);
 };
 
-function Dog(name, breed) {
-    Animal.call(this, name);
-    this.breed = breed;
-}
+// 创建实例
+const dog = new Animal("旺财", "狗");
+const cat = new Animal("咪咪", "猫");
 
-// 设置原型链
-Dog.prototype = Object.create(Animal.prototype);
-Dog.prototype.constructor = Dog;
+dog.speak(); // 旺财是一只狗
+cat.speak(); // 咪咪是一只猫
 
-Dog.prototype.bark = function() {
-    return `${this.name}汪汪叫`;
+// 检查原型
+console.log(dog.__proto__ === Animal.prototype); // true
+console.log(Animal.prototype.isPrototypeOf(dog)); // true
+```
+
+## 现代对象语法
+
+### 1. 计算属性名
+```javascript
+const prefix = "user_";
+const id = 123;
+
+const user = {
+    [prefix + id]: "张三",
+    [`${prefix}${id}_name`]: "李四",
+    [prefix + "status"]: "active"
 };
 
-const dog = new Dog("小白", "金毛");
-console.log(dog.speak()); // 小白发出声音
-console.log(dog.bark());  // 小白汪汪叫
+console.log(user); // { user_123: "张三", user_123_name: "李四", user_status: "active" }
 ```
 
-### 2. 类继承 (ES6)
-```javascript
-class Animal {
-    constructor(name) {
-        this.name = name;
-    }
-    
-    speak() {
-        return `${this.name}发出声音`;
-    }
-}
-
-class Dog extends Animal {
-    constructor(name, breed) {
-        super(name);  // 调用父类构造函数
-        this.breed = breed;
-    }
-    
-    bark() {
-        return `${this.name}汪汪叫`;
-    }
-    
-    getInfo() {
-        return `${this.name}是一只${this.breed}`;
-    }
-}
-
-const dog = new Dog("小黑", "拉布拉多");
-console.log(dog.speak());  // 小黑发出声音
-console.log(dog.bark());   // 小黑汪汪叫
-console.log(dog.getInfo()); // 小黑是一只拉布拉多
-```
-
-## 🔧 高级特性
-
-### 1. 静态方法
-```javascript
-class MathUtils {
-    static add(a, b) {
-        return a + b;
-    }
-    
-    static multiply(a, b) {
-        return a * b;
-    }
-    
-    static PI = 3.14159;
-}
-
-console.log(MathUtils.add(5, 3));      // 8
-console.log(MathUtils.multiply(4, 6)); // 24
-console.log(MathUtils.PI);             // 3.14159
-```
-
-### 2. 私有字段 (ES2022)
-```javascript
-class BankAccount {
-    #balance = 0;  // 私有字段
-    
-    constructor(initialBalance) {
-        this.#balance = initialBalance;
-    }
-    
-    deposit(amount) {
-        if (amount > 0) {
-            this.#balance += amount;
-            return true;
-        }
-        return false;
-    }
-    
-    withdraw(amount) {
-        if (amount > 0 && amount <= this.#balance) {
-            this.#balance -= amount;
-            return true;
-        }
-        return false;
-    }
-    
-    getBalance() {
-        return this.#balance;
-    }
-}
-
-const account = new BankAccount(1000);
-account.deposit(500);
-console.log(account.getBalance()); // 1500
-// console.log(account.#balance); // 错误！私有字段无法访问
-```
-
-### 3. 对象解构和展开
+### 2. 对象解构
 ```javascript
 const person = {
-    name: "张三",
-    age: 25,
-    city: "北京",
-    hobby: "编程"
+    name: "赵六",
+    age: 35,
+    city: "广州",
+    job: "工程师"
 };
 
-// 对象解构
-const { name, age, ...rest } = person;
-console.log(name); // 张三
-console.log(age);  // 25
-console.log(rest); // { city: "北京", hobby: "编程" }
+// 基本解构
+const { name, age } = person;
+console.log(name, age); // 赵六 35
 
-// 对象展开
-const personCopy = { ...person };
-const personWithJob = { ...person, job: "前端工程师" };
+// 重命名变量
+const { name: personName, job: profession } = person;
+console.log(personName, profession); // 赵六 工程师
 
-console.log(personCopy);      // 复制原对象
-console.log(personWithJob);   // 添加新属性
+// 默认值
+const { country = "中国" } = person;
+console.log(country); // 中国
+
+// 嵌套解构
+const company = {
+    name: "科技公司",
+    address: {
+        city: "深圳",
+        street: "科技路123号"
+    }
+};
+
+const { address: { city, street } } = company;
+console.log(city, street); // 深圳 科技路123号
 ```
 
-## 💡 最佳实践
+### 3. 对象展开运算符
+```javascript
+const baseConfig = {
+    host: "localhost",
+    port: 3000,
+    timeout: 5000
+};
+
+const devConfig = {
+    ...baseConfig,
+    port: 3001,
+    debug: true
+};
+
+const prodConfig = {
+    ...baseConfig,
+    host: "production.com",
+    timeout: 10000
+};
+
+console.log(devConfig);
+console.log(prodConfig);
+
+// 合并对象
+const user = { name: "张三", age: 25 };
+const details = { city: "北京", job: "工程师" };
+const completeUser = { ...user, ...details };
+console.log(completeUser); // { name: "张三", age: 25, city: "北京", job: "工程师" }
+```
+
+## 对象实用方法
+
+### 1. 对象遍历
+```javascript
+const person = {
+    name: "王五",
+    age: 28,
+    city: "上海"
+};
+
+// for...in 循环
+for (let key in person) {
+    if (person.hasOwnProperty(key)) {
+        console.log(`${key}: ${person[key]}`);
+    }
+}
+
+// Object.keys()
+const keys = Object.keys(person);
+console.log(keys); // ['name', 'age', 'city']
+
+// Object.values()
+const values = Object.values(person);
+console.log(values); // ['王五', 28, '上海']
+
+// Object.entries()
+const entries = Object.entries(person);
+console.log(entries); // [['name', '王五'], ['age', 28], ['city', '上海']]
+
+// 使用 entries 进行遍历
+entries.forEach(([key, value]) => {
+    console.log(`${key}: ${value}`);
+});
+```
+
+### 2. 对象比较和复制
+```javascript
+// 浅拷贝
+const original = { a: 1, b: { c: 2 } };
+const shallowCopy = { ...original };
+
+// 深拷贝
+const deepCopy = JSON.parse(JSON.stringify(original));
+
+// 对象合并
+const obj1 = { a: 1, b: 2 };
+const obj2 = { b: 3, c: 4 };
+const merged = Object.assign({}, obj1, obj2);
+console.log(merged); // { a: 1, b: 3, c: 4 }
+
+// 对象冻结
+const frozen = Object.freeze({ name: "张三", age: 25 });
+// frozen.age = 26; // 错误！不能修改冻结对象
+```
+
+## 最佳实践
 
 ### 1. 对象设计原则
-```javascript
-// 单一职责原则
-class UserManager {
-    constructor() {
-        this.users = [];
-    }
-    
-    addUser(user) {
-        this.users.push(user);
-    }
-    
-    removeUser(userId) {
-        this.users = this.users.filter(user => user.id !== userId);
-    }
-    
-    getUserById(userId) {
-        return this.users.find(user => user.id === userId);
-    }
-}
-
-// 组合优于继承
-class Logger {
-    log(message) {
-        console.log(`[${new Date().toISOString()}] ${message}`);
-    }
-}
-
-class UserService {
-    constructor() {
-        this.logger = new Logger();
-    }
-    
-    createUser(userData) {
-        this.logger.log(`创建用户: ${userData.name}`);
-        // 用户创建逻辑
-    }
-}
-```
+- **单一职责** - 每个对象只负责一个功能
+- **封装性** - 隐藏内部实现细节
+- **一致性** - 保持命名和结构的一致性
+- **可扩展性** - 设计时考虑未来扩展
 
 ### 2. 性能优化
 ```javascript
-// 避免在循环中创建函数
-const users = [
-    { name: "张三", age: 25 },
-    { name: "李四", age: 30 },
-    { name: "王五", age: 28 }
-];
+// 避免在循环中创建对象
+const users = [];
+for (let i = 0; i < 1000; i++) {
+    users.push({
+        id: i,
+        name: `用户${i}`,
+        email: `user${i}@example.com`
+    });
+}
 
-// 好的做法
-const greet = function(user) {
-    return `你好，${user.name}`;
-};
+// 使用对象池模式
+const objectPool = [];
+function getObject() {
+    return objectPool.pop() || { name: "", age: 0 };
+}
 
-users.forEach(user => {
-    console.log(greet(user));
-});
-
-// 避免的做法
-users.forEach(user => {
-    const greet = function(user) {  // 每次循环都创建新函数
-        return `你好，${user.name}`;
-    };
-    console.log(greet(user));
-});
+function returnObject(obj) {
+    objectPool.push(obj);
+}
 ```
 
-## 🎯 总结
+## 总结
 
-对象编程是JavaScript的核心概念，掌握好对象的使用方法对于编写高质量的代码至关重要：
+对象是JavaScript编程的核心概念，掌握好对象的使用对于编写高质量的代码至关重要：
 
-1. **基础语法** - 对象字面量、构造函数、类
-2. **操作技巧** - 属性操作、方法定义、对象遍历
-3. **继承机制** - 原型链、类继承
-4. **现代特性** - 静态方法、私有字段、解构展开
+1. **基础语法** - 对象字面量、属性访问、方法定义
+2. **高级特性** - 属性描述符、原型继承、this绑定
+3. **现代语法** - 计算属性、解构赋值、展开运算符
+4. **实用方法** - 对象遍历、比较、复制
 5. **最佳实践** - 设计原则、性能优化
 
-## 📖 延伸阅读
+## 延伸阅读
 
-- **[MDN - 对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects)** - 对象操作详解
-- **[MDN - 类](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)** - ES6类语法详解
-- **[MDN - 原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)** - 原型继承机制
-- **[MDN - 私有字段](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/Private_class_fields)** - 私有字段语法
-
-通过不断练习和实践，你将能够熟练运用对象编程来构建复杂的应用程序！ 
+- **[MDN - 对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)** - 对象方法和属性详解
+- **[JavaScript.info - 对象](https://javascript.info/object)** - 现代JavaScript对象教程
+- **[ES6 对象扩展](https://es6.ruanyifeng.com/#docs/object)** - ES6对象新特性 

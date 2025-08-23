@@ -1,8 +1,8 @@
-# HTML 元素 📝
+# HTML 元素
 
 HTML元素是构建网页的基础，每个元素都有特定的语义和功能。
 
-## 🏷️ 文本元素
+## 文本元素
 
 ### 标题元素
 ```html
@@ -48,7 +48,7 @@ HTML元素是构建网页的基础，每个元素都有特定的语义和功能�
 </dl>
 ```
 
-## 🔗 链接和导航
+## 链接和导航
 
 ### 链接元素
 ```html
@@ -79,7 +79,7 @@ HTML元素是构建网页的基础，每个元素都有特定的语义和功能�
 </nav>
 ```
 
-## 🖼️ 媒体元素
+## 媒体元素
 
 ### 图片元素
 ```html
@@ -114,223 +114,95 @@ HTML元素是构建网页的基础，每个元素都有特定的语义和功能�
 </video>
 ```
 
-## 📋 表单元素
+## 表格元素
 
-### 基本表单
+### 基本表格
 ```html
-<form action="/submit" method="post">
-    <!-- 文本输入 -->
-    <label for="username">用户名：</label>
-    <input type="text" id="username" name="username" required>
-    
-    <!-- 密码输入 -->
-    <label for="password">密码：</label>
-    <input type="password" id="password" name="password" required>
-    
-    <!-- 邮箱输入 -->
-    <label for="email">邮箱：</label>
-    <input type="email" id="email" name="email" required>
-    
-    <!-- 数字输入 -->
-    <label for="age">年龄：</label>
-    <input type="number" id="age" name="age" min="0" max="120">
-    
-    <!-- 日期输入 -->
-    <label for="birthday">生日：</label>
-    <input type="date" id="birthday" name="birthday">
-    
-    <!-- 单选按钮 -->
-    <fieldset>
-        <legend>性别：</legend>
-        <input type="radio" id="male" name="gender" value="male">
-        <label for="male">男</label>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">女</label>
-    </fieldset>
-    
-    <!-- 复选框 -->
-    <fieldset>
-        <legend>兴趣爱好：</legend>
-        <input type="checkbox" id="reading" name="hobbies" value="reading">
-        <label for="reading">阅读</label>
-        <input type="checkbox" id="sports" name="hobbies" value="sports">
-        <label for="sports">运动</label>
-        <input type="checkbox" id="music" name="hobbies" value="music">
-        <label for="music">音乐</label>
-    </fieldset>
-    
-    <!-- 下拉选择 -->
-    <label for="city">城市：</label>
-    <select id="city" name="city">
-        <option value="">请选择城市</option>
-        <option value="beijing">北京</option>
-        <option value="shanghai">上海</option>
-        <option value="guangzhou">广州</option>
-        <option value="shenzhen">深圳</option>
-    </select>
-    
-    <!-- 文本区域 -->
-    <label for="message">留言：</label>
-    <textarea id="message" name="message" rows="4" cols="50"></textarea>
-    
-    <!-- 提交按钮 -->
-    <button type="submit">提交</button>
-    <button type="reset">重置</button>
-</form>
-```
-
-## 🏗️ 布局元素
-
-### 容器元素
-```html
-<!-- 通用容器 -->
-<div class="container">
-    <p>这是一个div容器</p>
-</div>
-
-<!-- 语义化容器 -->
-<header>
-    <h1>网站标题</h1>
-    <nav>导航菜单</nav>
-</header>
-
-<main>
-    <article>
-        <h2>文章标题</h2>
-        <p>文章内容...</p>
-    </article>
-    
-    <aside>
-        <h3>侧边栏</h3>
-        <p>相关链接...</p>
-    </aside>
-</main>
-
-<footer>
-    <p>&copy; 2024 前端学习指南</p>
-</footer>
-```
-
-### 表格元素
-```html
-<table border="1">
-    <caption>学生成绩表</caption>
+<table>
     <thead>
         <tr>
             <th>姓名</th>
-            <th>数学</th>
-            <th>语文</th>
-            <th>英语</th>
+            <th>年龄</th>
+            <th>职业</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>张三</td>
-            <td>85</td>
-            <td>90</td>
-            <td>88</td>
+            <td>25</td>
+            <td>工程师</td>
         </tr>
         <tr>
             <td>李四</td>
-            <td>92</td>
-            <td>85</td>
-            <td>90</td>
+            <td>30</td>
+            <td>设计师</td>
         </tr>
     </tbody>
-    <tfoot>
-        <tr>
-            <td>平均分</td>
-            <td>88.5</td>
-            <td>87.5</td>
-            <td>89</td>
-        </tr>
-    </tfoot>
 </table>
 ```
 
-## 🔧 实践练习
+## 表单元素
 
-创建一个完整的个人介绍页面：
-
+### 输入字段
 ```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人介绍页面</title>
-</head>
-<body>
-    <header>
-        <h1>张三的个人介绍</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#skills">技能</a></li>
-                <li><a href="#contact">联系方式</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="about">
-            <h2>关于我</h2>
-            <img src="avatar.jpg" alt="个人头像" width="200">
-            <p>我是一名前端开发者，热爱编程和新技术。</p>
-        </section>
-        
-        <section id="skills">
-            <h2>技能列表</h2>
-            <ul>
-                <li>HTML5</li>
-                <li>CSS3</li>
-                <li>JavaScript</li>
-                <li>Vue.js</li>
-            </ul>
-        </section>
-        
-        <section id="contact">
-            <h2>联系方式</h2>
-            <form>
-                <label for="name">姓名：</label>
-                <input type="text" id="name" name="name" required>
-                
-                <label for="email">邮箱：</label>
-                <input type="email" id="email" name="email" required>
-                
-                <label for="message">留言：</label>
-                <textarea id="message" name="message" rows="4"></textarea>
-                
-                <button type="submit">发送消息</button>
-            </form>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 张三的个人网站</p>
-    </footer>
-</body>
-</html>
+<!-- 文本输入 -->
+<input type="text" name="username" placeholder="用户名">
+
+<!-- 密码输入 -->
+<input type="password" name="password" placeholder="密码">
+
+<!-- 邮箱输入 -->
+<input type="email" name="email" placeholder="邮箱地址">
+
+<!-- 数字输入 -->
+<input type="number" name="age" min="1" max="120">
+
+<!-- 日期选择 -->
+<input type="date" name="birthday">
 ```
 
-## 📚 重要概念
+### 选择元素
+```html
+<!-- 单选按钮 -->
+<input type="radio" name="gender" value="male" id="male">
+<label for="male">男</label>
 
-1. **语义化** - 使用有意义的标签
-2. **可访问性** - 为屏幕阅读器提供支持
-3. **表单验证** - 客户端和服务器端验证
-4. **响应式图片** - 适配不同设备
+<!-- 复选框 -->
+<input type="checkbox" name="hobbies" value="reading" id="reading">
+<label for="reading">阅读</label>
 
-## 💡 最佳实践
+<!-- 下拉选择 -->
+<select name="city">
+    <option value="">请选择城市</option>
+    <option value="beijing">北京</option>
+    <option value="shanghai">上海</option>
+</select>
+```
 
-1. **使用语义化标签**
-2. **为图片添加alt属性**
-3. **合理使用表单验证**
-4. **保持代码结构清晰**
+## 布局元素
 
-## 🔗 相关资源
+### 容器元素
+```html
+<!-- 通用容器 -->
+<div>块级容器</div>
 
-- **[MDN - HTML元素参考](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)** - 完整的HTML元素列表和说明
-- **[W3C - HTML5元素](https://www.w3.org/TR/html52/semantics.html)** - HTML5语义化元素规范
-- **[HTML可访问性指南](https://developer.mozilla.org/zh-CN/docs/Learn/Accessibility/HTML)** - 创建可访问的HTML内容
+<!-- 行内容器 -->
+<span>行内容器</span>
 
---- 
+<!-- 语义化容器 -->
+<header>页面头部</header>
+<nav>导航区域</nav>
+<main>主要内容</main>
+<aside>侧边栏</aside>
+<footer>页面底部</footer>
+<article>文章内容</article>
+<section>内容区块</section>
+```
+
+## 使用建议
+
+1. **选择合适的元素** - 根据内容语义选择正确的标签
+2. **保持结构清晰** - 使用适当的嵌套和缩进
+3. **添加必要属性** - 如alt、title、aria-label等
+4. **遵循语义化原则** - 让HTML代码更有意义
+5. **考虑可访问性** - 为屏幕阅读器提供支持 

@@ -1,71 +1,94 @@
-# Vue 3.0 模板语法 🎨
+# Vue 3.0 模板语法
 
-Vue使用基于HTML的模板语法，允许你声明式地将DOM绑定到底层组件实例的数据。所有的Vue模板都是有效的HTML，可以被符合规范的浏览器和HTML解析器解析。
+## 模板语法概述
 
-## 🎯 模板基础
+Vue 3.0 的模板语法是 Vue 框架的核心特性之一，它提供了一种声明式的方式来描述应用的 UI 结构。通过模板语法，你可以将数据绑定到 DOM，实现数据驱动的用户界面。
 
-### 1. 文本插值
+### 模板语法的优势
 
-最基本的文本插值使用"Mustache"语法（双大括号）。
+- **声明式渲染** - 直接描述"想要什么"，而不是"如何实现"
+- **数据绑定** - 自动同步数据和视图，无需手动操作 DOM
+- **组件化** - 将复杂的 UI 拆分为可复用的组件
+- **性能优化** - Vue 编译器自动优化模板，提升渲染性能
+
+## 基础语法
+
+### 文本插值
+
+#### 1. 双大括号插值 `{{ }}`
+
+最基本的文本插值方式，用于在模板中显示响应式数据。Vue 会自动追踪数据的变化并更新视图：
 
 ```vue
 <template>
-  <div>
-    <h1>{{ message }}</h1>
-    <p>当前时间: {{ currentTime }}</p>
-    <p>计算结果: {{ 2 + 2 }}</p>
-    <p>字符串拼接: {{ 'Hello ' + name }}</p>
+  <div class="text-interpolation">
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <span>当前时间: {{ currentTime }}</span>
+    
+    <!-- 支持表达式 -->
+    <p>计算结果: {{ 2 + 3 }}</p>
+    <p>字符串长度: {{ message.length }}</p>
+    <p>是否为空: {{ message ? '有内容' : '无内容' }}</p>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 
-const message = ref('Hello Vue 3.0!')
-const name = ref('World')
-const currentTime = ref('')
+const title = ref('Vue 3.0 模板语法')
+const message = ref('欢迎学习 Vue 3.0!')
 
-onMounted(() => {
-  currentTime.value = new Date().toLocaleString()
+// 计算属性
+const currentTime = computed(() => {
+  return new Date().toLocaleString()
 })
 </script>
 ```
 
-### 2. 原始HTML
+#### 2. v-text 指令
 
-使用`v-html`指令输出真正的HTML内容。
+`v-text` 指令是双大括号插值的替代方案，功能完全相同。需要注意的是，v-text 会覆盖元素的所有内容：
 
 ```vue
 <template>
-  <div>
-    <p>普通文本: {{ htmlContent }}</p>
-    <p v-html="htmlContent"></p>
-    <div v-html="dangerousHtml"></div>
+  <div class="v-text-demo">
+    <!-- 等价于 {{ title }} -->
+    <h1 v-text="title"></h1>
+    
+    <!-- 支持表达式 -->
+    <p v-text="`用户: ${username}`"></p>
+    
+    <!-- 注意：v-text 会覆盖元素的所有内容 -->
+    <div v-text="message">
+      这个内容会被 message 的值覆盖
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
-const htmlContent = ref('<strong>这是粗体文本</strong>')
-const dangerousHtml = ref('<script>alert("XSS攻击")</script>')
-
-// ⚠️ 注意：v-html可能导致XSS攻击，只对可信内容使用
+const title = ref('Vue 3.0 学习指南')
+const username = ref('张三')
+const message = ref('这是新的消息内容')
 </script>
 ```
 
-### 3. 属性绑定
+### 属性绑定
 
-使用`v-bind`指令（简写为`:`）动态绑定属性。
+#### 1. v-bind 指令
+
+`v-bind` 指令用于动态绑定 HTML 属性，使属性值能够响应式地变化：
 
 ```vue
 <template>
-  <div>
-    <!-- 完整语法 -->
-    <img v-bind:src="imageSrc" v-bind:alt="imageAlt">
+  <div class="attribute-binding">
+    <!-- 基础属性绑定 -->
+    <img v-bind:src="imageSrc" v-bind:alt="imageAlt" />
     
-    <!-- 简写语法 -->
-    <img :src="imageSrc" :alt="imageAlt">
+    <!-- 简写形式 -->
+    <img :src="imageSrc" :alt="imageAlt" />
     
     <!-- 动态类名 -->
     <div :class="dynamicClass">动态类名</div>
@@ -73,12 +96,14 @@ const dangerousHtml = ref('<script>alert("XSS攻击")</script>')
     <!-- 动态样式 -->
     <div :style="dynamicStyle">动态样式</div>
     
-    <!-- 布尔属性 -->
-    <button :disabled="isDisabled">按钮</button>
-    
     <!-- 对象语法 -->
-    <div :class="{ active: isActive, 'text-danger': hasError }">
-      对象语法类名
+    <button :class="{ active: isActive, disabled: isDisabled }">
+      按钮状态
+    </button>
+    
+    <!-- 数组语法 -->
+    <div :class="['base-class', conditionalClass]">
+      数组类名
     </div>
   </div>
 </template>
@@ -89,120 +114,225 @@ import { ref, computed } from 'vue'
 const imageSrc = ref('/images/logo.png')
 const imageAlt = ref('Vue Logo')
 const isActive = ref(true)
-const hasError = ref(false)
 const isDisabled = ref(false)
 
-const dynamicClass = computed(() => ({
-  'text-primary': isActive.value,
-  'text-danger': hasError.value,
-  'font-bold': true
-}))
+// 动态类名
+const dynamicClass = computed(() => {
+  return isActive.value ? 'active' : 'inactive'
+})
 
-const dynamicStyle = computed(() => ({
-  color: isActive.value ? 'green' : 'red',
-  fontSize: '18px',
-  fontWeight: 'bold'
-}))
+// 动态样式
+const dynamicStyle = computed(() => {
+  return {
+    color: isActive.value ? '#42b883' : '#666',
+    fontSize: '16px',
+    fontWeight: isActive.value ? 'bold' : 'normal'
+  }
+})
+
+// 条件类名
+const conditionalClass = computed(() => {
+  return isActive.value ? 'highlight' : ''
+})
 </script>
 ```
 
-## 🔧 指令系统
+#### 2. 特殊属性绑定
 
-### 1. v-if / v-else / v-else-if
-
-条件渲染指令，根据表达式的值来条件性地渲染元素。
+Vue 3.0 支持绑定一些特殊的属性，如 DOM 属性、布尔属性等：
 
 ```vue
 <template>
-  <div>
-    <h1 v-if="type === 'A'">A类型</h1>
-    <h1 v-else-if="type === 'B'">B类型</h1>
-    <h1 v-else>C类型</h1>
+  <div class="special-attributes">
+    <!-- 绑定 DOM 属性 -->
+    <input :value="inputValue" @input="updateValue" />
     
-    <!-- 使用template包装多个元素 -->
-    <template v-if="showContent">
-      <h2>标题</h2>
-      <p>内容段落</p>
-      <span>标签</span>
+    <!-- 绑定布尔属性 -->
+    <input :disabled="isDisabled" :readonly="isReadonly" />
+    
+    <!-- 绑定多个属性 -->
+    <div v-bind="multipleAttributes">
+      多个属性绑定
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const inputValue = ref('')
+const isDisabled = ref(false)
+const isReadonly = ref(false)
+
+// 多个属性对象
+const multipleAttributes = ref({
+  id: 'dynamic-id',
+  'data-test': 'test-value',
+  title: '动态标题'
+})
+
+const updateValue = (event) => {
+  inputValue.value = event.target.value
+}
+</script>
+```
+
+### 条件渲染
+
+#### 1. v-if 指令
+
+`v-if` 指令用于条件性地渲染元素。当条件为假时，元素不会被渲染到 DOM 中：
+
+```vue
+<template>
+  <div class="conditional-rendering">
+    <!-- 基础条件渲染 -->
+    <div v-if="isVisible">这个元素只在 isVisible 为 true 时显示</div>
+    
+    <!-- v-else-if 和 v-else -->
+    <div v-if="status === 'loading'">加载中...</div>
+    <div v-else-if="status === 'success'">加载成功！</div>
+    <div v-else-if="status === 'error'">加载失败！</div>
+    <div v-else>未知状态</div>
+    
+    <!-- 在 template 上使用 -->
+    <template v-if="showUserInfo">
+      <h3>用户信息</h3>
+      <p>姓名: {{ user.name }}</p>
+      <p>邮箱: {{ user.email }}</p>
     </template>
     
     <!-- 条件渲染组件 -->
-    <UserProfile v-if="user" :user="user" />
-    <LoginForm v-else />
+    <UserProfile v-if="showProfile" :user="user" />
+    <UserCard v-else :user="user" />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import UserProfile from './UserProfile.vue'
-import LoginForm from './LoginForm.vue'
+import UserCard from './UserCard.vue'
 
-const type = ref('A')
-const showContent = ref(true)
-const user = ref(null)
+const isVisible = ref(true)
+const status = ref('loading')
+const showUserInfo = ref(true)
+const showProfile = ref(false)
+
+const user = ref({
+  name: '张三',
+  email: 'zhangsan@example.com'
+})
+
+// 模拟状态变化
+setTimeout(() => {
+  status.value = 'success'
+}, 2000)
 </script>
 ```
 
-### 2. v-show
+#### 2. v-show 指令
 
-根据表达式的值来显示或隐藏元素（通过CSS的display属性）。
+`v-show` 指令通过切换 CSS 的 `display` 属性来显示/隐藏元素。元素总是会被渲染，只是切换显示状态：
 
 ```vue
 <template>
-  <div>
-    <h1 v-show="isVisible">这个标题会显示/隐藏</h1>
+  <div class="v-show-demo">
+    <!-- v-show 总是渲染元素，只是切换显示状态 -->
+    <div v-show="isVisible">使用 v-show 控制显示</div>
     
-    <!-- v-show vs v-if -->
-    <div v-show="showWithVShow">使用v-show（频繁切换推荐）</div>
-    <div v-if="showWithVIf">使用v-if（条件很少改变推荐）</div>
+    <!-- 性能对比 -->
+    <div v-if="expensiveCondition">昂贵的条件渲染</div>
+    <div v-show="expensiveCondition">便宜的显示切换</div>
+    
+    <!-- 结合动画 -->
+    <transition name="fade">
+      <div v-show="showWithAnimation" class="animated-element">
+        带动画的显示/隐藏
+      </div>
+    </transition>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const isVisible = ref(true)
-const showWithVShow = ref(true)
-const showWithVIf = ref(true)
+const showWithAnimation = ref(true)
+
+// 模拟昂贵的计算
+const expensiveCondition = computed(() => {
+  // 这里可能包含复杂的计算逻辑
+  return Math.random() > 0.5
+})
+
+// 切换显示状态
+const toggleVisibility = () => {
+  isVisible.value = !isVisible.value
+  showWithAnimation.value = !showWithAnimation.value
+}
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.animated-element {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+</style>
 ```
 
-**v-if vs v-show的区别：**
-- `v-if`：真正的条件渲染，会销毁和重建DOM元素
-- `v-show`：只是切换CSS的display属性，DOM元素始终存在
-- `v-if`适合条件很少改变的场景，`v-show`适合频繁切换的场景
+#### 3. v-if vs v-show 选择指南
 
-### 3. v-for
+| 特性 | v-if | v-show |
+|------|------|--------|
+| **渲染方式** | 条件为假时不渲染 | 总是渲染，切换 display |
+| **性能开销** | 切换时开销大 | 初始渲染开销大 |
+| **适用场景** | 条件很少改变 | 条件频繁切换 |
+| **SEO 友好** | 更好 | 较差 |
 
-基于数组或对象来渲染列表。
+### 列表渲染
+
+#### 1. v-for 指令
+
+`v-for` 指令用于渲染列表数据，支持遍历数组、对象和数字范围：
 
 ```vue
 <template>
-  <div>
-    <!-- 遍历数组 -->
+  <div class="list-rendering">
+    <!-- 基础列表渲染 -->
     <ul>
+      <li v-for="item in items" :key="item.id">
+        {{ item.name }} - {{ item.description }}
+      </li>
+    </ul>
+    
+    <!-- 带索引的列表 -->
+    <ol>
       <li v-for="(item, index) in items" :key="item.id">
         {{ index + 1 }}. {{ item.name }}
       </li>
-    </ul>
+    </ol>
     
     <!-- 遍历对象 -->
-    <ul>
-      <li v-for="(value, key, index) in userInfo" :key="key">
-        {{ key }}: {{ value }}
-      </li>
-    </ul>
-    
-    <!-- 使用template包装 -->
-    <template v-for="item in items" :key="item.id">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.description }}</p>
-      <hr>
-    </template>
+    <div class="object-iteration">
+      <div v-for="(value, key) in userProfile" :key="key">
+        <strong>{{ key }}:</strong> {{ value }}
+      </div>
+    </div>
     
     <!-- 遍历数字范围 -->
-    <div>
-      <span v-for="n in 10" :key="n">{{ n }}</span>
+    <div class="number-iteration">
+      <span v-for="n in 5" :key="n" class="number-item">
+        {{ n }}
+      </span>
     </div>
   </div>
 </template>
@@ -211,58 +341,93 @@ const showWithVIf = ref(true)
 import { ref } from 'vue'
 
 const items = ref([
-  { id: 1, name: 'Vue 3.0', title: '框架', description: '渐进式JavaScript框架' },
-  { id: 2, name: 'React', title: '库', description: '用于构建用户界面的JavaScript库' },
-  { id: 3, name: 'Angular', title: '框架', description: 'Google开发的平台' }
+  { id: 1, name: 'Vue 3.0', description: '渐进式 JavaScript 框架' },
+  { id: 2, name: 'Composition API', description: '组合式 API' },
+  { id: 3, name: 'Teleport', description: '传送门组件' },
+  { id: 4, name: 'Suspense', description: '异步组件处理' }
 ])
 
-const userInfo = ref({
-  name: 'John Doe',
-  age: 30,
-  email: 'john@example.com'
+const userProfile = ref({
+  name: '张三',
+  age: 25,
+  city: '北京',
+  occupation: '前端工程师'
 })
 </script>
 ```
 
-**重要提示：**
-- 始终为`v-for`提供`:key`属性，帮助Vue识别节点
-- 避免使用索引作为key（除非列表是静态的且不会重新排序）
-- 使用对象或数字的唯一标识符作为key
-
-### 4. v-on
-
-绑定事件监听器（简写为`@`）。
+#### 2. 列表渲染的最佳实践
 
 ```vue
 <template>
-  <div>
-    <!-- 完整语法 -->
+  <div class="list-best-practices">
+    <!-- 1. 始终使用 key -->
+    <div v-for="user in users" :key="user.id" class="user-item">
+      {{ user.name }}
+    </div>
+    
+    <!-- 2. 避免在 v-for 中使用 v-if -->
+    <!-- 错误做法 -->
+    <div v-for="user in users" v-if="user.isActive" :key="user.id">
+      {{ user.name }}
+    </div>
+    
+    <!-- 正确做法：使用计算属性过滤 -->
+    <div v-for="user in activeUsers" :key="user.id" class="user-item">
+      {{ user.name }}
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const users = ref([
+  { id: 1, name: '张三', email: 'zhangsan@example.com', isActive: true },
+  { id: 2, name: '李四', email: 'lisi@example.com', isActive: false },
+  { id: 3, name: '王五', email: 'wangwu@example.com', isActive: true }
+])
+
+// 使用计算属性过滤，而不是在模板中使用 v-if
+const activeUsers = computed(() => {
+  return users.value.filter(user => user.isActive)
+})
+</script>
+```
+
+### 事件处理
+
+#### 1. v-on 指令
+
+`v-on` 指令用于绑定事件处理器，支持多种事件类型和修饰符：
+
+```vue
+<template>
+  <div class="event-handling">
+    <!-- 基础事件绑定 -->
     <button v-on:click="handleClick">点击我</button>
     
-    <!-- 简写语法 -->
-    <button @click="handleClick">点击我</button>
+    <!-- 简写形式 -->
+    <button @click="handleClick">点击我（简写）</button>
     
-    <!-- 内联语句 -->
+    <!-- 内联事件处理器 -->
     <button @click="count++">计数: {{ count }}</button>
     
+    <!-- 传递参数 -->
+    <button @click="handleClickWithParam('hello', $event)">
+      传递参数
+    </button>
+    
+    <!-- 多个事件处理器 -->
+    <button @click="handleClick1(); handleClick2()">
+      多个处理器
+    </button>
+    
     <!-- 事件修饰符 -->
-    <form @submit.prevent="onSubmit">
-      <input @keyup.enter="onEnter" @keyup.esc="onEscape">
+    <form @submit.prevent="handleSubmit">
+      <input @keyup.enter="handleEnter" placeholder="按回车提交" />
       <button type="submit">提交</button>
     </form>
-    
-    <!-- 多个修饰符 -->
-    <button @click.stop.prevent="doSomething">阻止默认行为和冒泡</button>
-    
-    <!-- 按键修饰符 -->
-    <input @keyup.enter="onEnter" @keyup.esc="onEscape">
-    
-    <!-- 系统修饰符 -->
-    <button @click.ctrl="onCtrlClick">Ctrl + 点击</button>
-    <button @click.shift="onShiftClick">Shift + 点击</button>
-    
-    <!-- 鼠标修饰符 -->
-    <div @click.right="onRightClick">右键点击</div>
   </div>
 </template>
 
@@ -272,56 +437,102 @@ import { ref } from 'vue'
 const count = ref(0)
 
 const handleClick = () => {
-  alert('按钮被点击了！')
+  console.log('按钮被点击了！')
+  alert('Hello Vue 3.0!')
 }
 
-const onSubmit = () => {
-  console.log('表单提交')
+const handleClickWithParam = (message, event) => {
+  console.log('消息:', message)
+  console.log('事件对象:', event)
+  console.log('目标元素:', event.target)
 }
 
-const onEnter = () => {
-  console.log('按下了Enter键')
+const handleClick1 = () => {
+  console.log('处理器 1')
 }
 
-const onEscape = () => {
-  console.log('按下了Escape键')
+const handleClick2 = () => {
+  console.log('处理器 2')
 }
 
-const doSomething = () => {
-  console.log('执行操作')
+const handleSubmit = () => {
+  console.log('表单提交被阻止')
 }
 
-const onCtrlClick = () => {
-  console.log('Ctrl + 点击')
-}
-
-const onShiftClick = () => {
-  console.log('Shift + 点击')
-}
-
-const onRightClick = () => {
-  console.log('右键点击')
+const handleEnter = () => {
+  console.log('按下了回车键')
 }
 </script>
 ```
 
-**常用事件修饰符：**
-- `.stop` - 阻止事件冒泡
-- `.prevent` - 阻止默认行为
-- `.capture` - 使用捕获模式
-- `.self` - 只在事件目标上触发
-- `.once` - 只触发一次
-- `.passive` - 不阻止默认行为
+#### 2. 事件修饰符详解
 
-### 5. v-model
-
-双向数据绑定，用于表单输入元素。
+Vue 3.0 提供了丰富的事件修饰符，用于简化常见的事件处理逻辑：
 
 ```vue
 <template>
-  <div>
-    <!-- 基础用法 -->
-    <input v-model="message" placeholder="输入消息">
+  <div class="event-modifiers">
+    <!-- 阻止默认行为 -->
+    <a @click.prevent="handleLinkClick" href="https://vuejs.org">
+      阻止默认跳转
+    </a>
+    
+    <!-- 阻止事件冒泡 -->
+    <div @click="handleOuterClick" class="outer">
+      外层
+      <div @click.stop="handleInnerClick" class="inner">
+        内层（阻止冒泡）
+      </div>
+    </div>
+    
+    <!-- 只触发一次 -->
+    <button @click.once="handleOnceClick">
+      只触发一次
+    </button>
+    
+    <!-- 被动事件监听器 -->
+    <div @scroll.passive="handleScroll" class="scroll-area">
+      滚动区域（被动监听）
+    </div>
+  </div>
+</template>
+
+<script setup>
+const handleLinkClick = () => {
+  console.log('链接被点击，但不会跳转')
+}
+
+const handleOuterClick = () => {
+  console.log('外层被点击')
+}
+
+const handleInnerClick = () => {
+  console.log('内层被点击')
+}
+
+const handleOnceClick = () => {
+  console.log('这个事件只会触发一次')
+}
+
+const handleScroll = () => {
+  console.log('滚动事件')
+}
+</script>
+```
+
+## 高级特性
+
+### 双向数据绑定
+
+#### 1. v-model 指令
+
+`v-model` 指令实现表单输入和数据的双向绑定，是 Vue 中最重要的指令之一：
+
+```vue
+<template>
+  <div class="two-way-binding">
+    <!-- 基础双向绑定 -->
+    <input v-model="message" placeholder="输入消息" />
     <p>消息: {{ message }}</p>
     
     <!-- 文本域 -->
@@ -329,49 +540,44 @@ const onRightClick = () => {
     <p>描述: {{ description }}</p>
     
     <!-- 复选框 -->
-    <input type="checkbox" v-model="isChecked" id="checkbox">
-    <label for="checkbox">同意条款</label>
-    <p>状态: {{ isChecked }}</p>
-    
-    <!-- 多个复选框 -->
-    <div>
-      <input type="checkbox" v-model="checkedNames" value="Vue" id="vue">
-      <label for="vue">Vue</label>
-      
-      <input type="checkbox" v-model="checkedNames" value="React" id="react">
-      <label for="react">React</label>
-      
-      <input type="checkbox" v-model="checkedNames" value="Angular" id="angular">
-      <label for="angular">Angular</label>
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" v-model="checkedNames" value="张三" />
+        张三
+      </label>
+      <label>
+        <input type="checkbox" v-model="checkedNames" value="李四" />
+        李四
+      </label>
+      <label>
+        <input type="checkbox" v-model="checkedNames" value="王五" />
+        王五
+      </label>
     </div>
-    <p>选中的框架: {{ checkedNames }}</p>
+    <p>选中的名字: {{ checkedNames }}</p>
     
     <!-- 单选框 -->
-    <div>
-      <input type="radio" v-model="picked" value="One" id="one">
-      <label for="one">One</label>
-      
-      <input type="radio" v-model="picked" value="Two" id="two">
-      <label for="two">Two</label>
+    <div class="radio-group">
+      <label>
+        <input type="radio" v-model="gender" value="male" />
+        男
+      </label>
+      <label>
+        <input type="radio" v-model="gender" value="female" />
+        女
+      </label>
     </div>
-    <p>选中的值: {{ picked }}</p>
+    <p>性别: {{ gender }}</p>
     
     <!-- 选择框 -->
-    <select v-model="selected">
-      <option value="">请选择</option>
-      <option value="A">选项A</option>
-      <option value="B">选项B</option>
-      <option value="C">选项C</option>
+    <select v-model="selectedCity">
+      <option value="">请选择城市</option>
+      <option value="beijing">北京</option>
+      <option value="shanghai">上海</option>
+      <option value="guangzhou">广州</option>
+      <option value="shenzhen">深圳</option>
     </select>
-    <p>选中的选项: {{ selected }}</p>
-    
-    <!-- 多选选择框 -->
-    <select v-model="multipleSelected" multiple>
-      <option value="A">选项A</option>
-      <option value="B">选项B</option>
-      <option value="C">选项C</option>
-    </select>
-    <p>选中的选项: {{ multipleSelected }}</p>
+    <p>选择的城市: {{ selectedCity }}</p>
   </div>
 </template>
 
@@ -380,267 +586,292 @@ import { ref } from 'vue'
 
 const message = ref('')
 const description = ref('')
-const isChecked = ref(false)
 const checkedNames = ref([])
-const picked = ref('')
-const selected = ref('')
-const multipleSelected = ref([])
+const gender = ref('')
+const selectedCity = ref('')
 </script>
 ```
 
-### 6. v-slot
+#### 2. 自定义组件的 v-model
 
-用于定义插槽内容（简写为`#`）。
+Vue 3.0 支持在自定义组件上使用 v-model，使组件通信更加灵活：
 
 ```vue
+<!-- CustomInput.vue -->
 <template>
-  <div>
-    <!-- 基础插槽 -->
-    <BaseLayout>
-      <template v-slot:header>
-        <h1>页面标题</h1>
-      </template>
-      
-      <template v-slot:default>
-        <p>主要内容</p>
-      </template>
-      
-      <template v-slot:footer>
-        <p>页面底部</p>
-      </template>
-    </BaseLayout>
+  <div class="custom-input">
+    <label>{{ label }}</label>
+    <input
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :placeholder="placeholder"
+    />
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
+  label: {
+    type: String,
+    default: '输入'
+  },
+  placeholder: {
+    type: String,
+    default: '请输入内容'
+  }
+})
+
+defineEmits(['update:modelValue'])
+</script>
+
+<!-- 使用自定义组件 -->
+<template>
+  <div class="custom-component-demo">
+    <CustomInput
+      v-model="customValue"
+      label="自定义输入框"
+      placeholder="这是一个自定义组件"
+    />
+    <p>输入的值: {{ customValue }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CustomInput from './CustomInput.vue'
+
+const customValue = ref('')
+</script>
+```
+
+### 插槽系统
+
+#### 1. 基础插槽
+
+插槽允许父组件向子组件传递内容，实现灵活的内容分发：
+
+```vue
+<!-- BaseSlot.vue -->
+<template>
+  <div class="base-slot">
+    <h3>{{ title }}</h3>
+    <!-- 默认插槽 -->
+    <slot>
+      <p>这是默认内容</p>
+    </slot>
+    <footer>插槽底部</footer>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    default: '基础插槽'
+  }
+})
+</script>
+
+<!-- 使用基础插槽 -->
+<template>
+  <div class="slot-usage">
+    <BaseSlot title="自定义标题">
+      <p>这是从父组件传递的内容</p>
+      <button @click="handleClick">父组件的按钮</button>
+    </BaseSlot>
     
-    <!-- 简写语法 -->
-    <BaseLayout>
+    <!-- 使用默认内容 -->
+    <BaseSlot title="使用默认内容" />
+  </div>
+</template>
+
+<script setup>
+import BaseSlot from './BaseSlot.vue'
+
+const handleClick = () => {
+  console.log('父组件的按钮被点击了！')
+}
+</script>
+```
+
+#### 2. 具名插槽
+
+具名插槽允许父组件向子组件的特定位置传递内容，实现更精确的内容分发：
+
+```vue
+<!-- NamedSlots.vue -->
+<template>
+  <div class="named-slots">
+    <header>
+      <slot name="header">
+        <h2>默认标题</h2>
+      </slot>
+    </header>
+    
+    <main>
+      <slot name="main">
+        <p>默认主要内容</p>
+      </slot>
+    </main>
+    
+    <aside>
+      <slot name="sidebar">
+        <p>默认侧边栏</p>
+      </slot>
+    </aside>
+    
+    <footer>
+      <slot name="footer">
+        <p>默认底部</p>
+      </slot>
+    </footer>
+  </div>
+</template>
+
+<!-- 使用具名插槽 -->
+<template>
+  <div class="named-slots-usage">
+    <NamedSlots>
       <template #header>
-        <h1>页面标题</h1>
+        <h2>自定义标题</h2>
+        <nav>
+          <a href="#home">首页</a> |
+          <a href="#about">关于</a> |
+          <a href="#contact">联系</a>
+        </nav>
       </template>
       
-      <template #default>
-        <p>主要内容</p>
+      <template #main>
+        <article>
+          <h3>主要内容</h3>
+          <p>这是主要内容区域，可以包含任何内容。</p>
+        </article>
+      </template>
+      
+      <template #sidebar>
+        <div class="sidebar-content">
+          <h4>侧边栏</h4>
+          <p>这里可以放置导航、标签云等内容。</p>
+        </div>
       </template>
       
       <template #footer>
-        <p>页面底部</p>
-      </template>
-    </BaseLayout>
-    
-    <!-- 作用域插槽 -->
-    <UserList :users="users">
-      <template #default="{ user, index }">
-        <div class="user-item">
-          <span>{{ index + 1 }}. {{ user.name }}</span>
-          <button @click="editUser(user)">编辑</button>
+        <div class="footer-content">
+          <p>&copy; 2024 Vue 3.0 学习指南</p>
         </div>
       </template>
-    </UserList>
+    </NamedSlots>
+  </div>
+</template>
+
+<script setup>
+import NamedSlots from './NamedSlots.vue'
+</script>
+```
+
+## 性能优化技巧
+
+### 编译时优化
+
+Vue 3.0 的编译器会自动进行多项优化，提升运行时性能：
+
+```vue
+<template>
+  <div class="optimization-demo">
+    <!-- 1. 静态内容提升 -->
+    <h1>这是静态标题</h1>
+    <p>这是静态段落</p>
+    
+    <!-- 2. 静态属性提升 -->
+    <div class="static-class" id="static-id">
+      静态属性会被提升
+    </div>
+    
+    <!-- 3. 事件缓存 -->
+    <button @click="handleClick">点击事件会被缓存</button>
+    
+    <!-- 4. 动态子节点优化 -->
+    <div v-if="showDynamic">
+      <span>动态内容 1</span>
+      <span>动态内容 2</span>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import BaseLayout from './BaseLayout.vue'
-import UserList from './UserList.vue'
+
+const showDynamic = ref(true)
+
+const handleClick = () => {
+  console.log('按钮被点击')
+}
+</script>
+```
+
+### 运行时优化建议
+
+```vue
+<template>
+  <div class="runtime-optimization">
+    <!-- 1. 使用 key 优化列表渲染 -->
+    <div v-for="item in optimizedList" :key="item.id" class="list-item">
+      {{ item.name }}
+    </div>
+    
+    <!-- 2. 避免在模板中使用复杂表达式 -->
+    <p>用户数量: {{ userCount }}</p>
+    
+    <!-- 3. 使用 v-show 替代频繁切换的 v-if -->
+    <div v-show="frequentlyToggled" class="toggle-content">
+      频繁切换的内容
+    </div>
+    
+    <!-- 4. 合理使用计算属性 -->
+    <p>过滤后的用户: {{ filteredUsers.length }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const optimizedList = ref([
+  { id: 1, name: '项目 1' },
+  { id: 2, name: '项目 2' },
+  { id: 3, name: '项目 3' }
+])
 
 const users = ref([
-  { id: 1, name: 'John' },
-  { id: 2, name: 'Jane' },
-  { id: 3, name: 'Bob' }
+  { id: 1, name: '张三', age: 25 },
+  { id: 2, name: '李四', age: 30 },
+  { id: 3, name: '王五', age: 28 }
 ])
 
-const editUser = (user) => {
-  console.log('编辑用户:', user)
-}
+const frequentlyToggled = ref(true)
+
+// 使用计算属性避免在模板中重复计算
+const userCount = computed(() => users.value.length)
+const filteredUsers = computed(() => {
+  return users.value.filter(user => user.age > 25)
+})
 </script>
 ```
 
-## 🎨 特殊指令
+## 总结
 
-### 1. v-once
+Vue 3.0 的模板语法提供了强大而灵活的声明式渲染能力。通过掌握这些语法特性，你可以：
 
-只渲染一次，后续数据变化不会影响渲染。
+- **构建响应式界面** - 数据变化自动更新视图
+- **创建可复用组件** - 通过插槽和属性绑定实现组件通信
+- **优化应用性能** - 利用编译器和运行时优化提升渲染效率
+- **简化开发流程** - 声明式语法让代码更清晰、更易维护
 
-```vue
-<template>
-  <div>
-    <h1 v-once>这个标题只会渲染一次: {{ message }}</h1>
-    <p>这个段落会响应变化: {{ message }}</p>
-    <button @click="updateMessage">更新消息</button>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const message = ref('Hello Vue 3.0!')
-
-const updateMessage = () => {
-  message.value = '消息已更新!'
-}
-</script>
-```
-
-### 2. v-pre
-
-跳过这个元素及其子元素的编译过程。
-
-```vue
-<template>
-  <div>
-    <p v-pre>{{ 这里的内容不会被编译 }}</p>
-    <p>{{ 这里的内容会被编译 }}</p>
-  </div>
-</template>
-```
-
-### 3. v-cloak
-
-隐藏未编译的模板，直到编译完成。
-
-```vue
-<template>
-  <div>
-    <h1 v-cloak>{{ message }}</h1>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const message = ref('Hello Vue 3.0!')
-</script>
-
-<style>
-[v-cloak] {
-  display: none;
-}
-</style>
-```
-
-## 🔧 动态组件
-
-使用`<component>`元素和`is`属性来动态渲染组件。
-
-```vue
-<template>
-  <div>
-    <!-- 动态组件 -->
-    <component :is="currentComponent" :data="componentData" />
-    
-    <!-- 切换组件 -->
-    <button @click="switchComponent('Home')">首页</button>
-    <button @click="switchComponent('About')">关于</button>
-    <button @click="switchComponent('Contact')">联系</button>
-    
-    <!-- 保持组件状态 -->
-    <keep-alive>
-      <component :is="currentComponent" />
-    </keep-alive>
-  </div>
-</template>
-
-<script setup>
-import { ref, shallowRef } from 'vue'
-import Home from './Home.vue'
-import About from './About.vue'
-import Contact from './Contact.vue'
-
-const currentComponent = shallowRef(Home)
-const componentData = ref({ title: '动态组件数据' })
-
-const switchComponent = (componentName) => {
-  switch (componentName) {
-    case 'Home':
-      currentComponent.value = Home
-      break
-    case 'About':
-      currentComponent.value = About
-      break
-    case 'Contact':
-      currentComponent.value = Contact
-      break
-  }
-}
-</script>
-```
-
-## 📱 响应式设计
-
-### 1. 条件渲染优化
-
-```vue
-<template>
-  <div>
-    <!-- 使用v-show优化频繁切换 -->
-    <div v-show="isVisible" class="frequently-changing">
-      频繁显示/隐藏的内容
-    </div>
-    
-    <!-- 使用v-if优化条件很少改变 -->
-    <div v-if="userType === 'admin'" class="admin-only">
-      管理员专用内容
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const isVisible = ref(true)
-const userType = ref('user')
-</script>
-```
-
-### 2. 列表渲染优化
-
-```vue
-<template>
-  <div>
-    <!-- 使用key优化列表渲染 -->
-    <ul>
-      <li v-for="item in items" :key="item.id">
-        {{ item.name }}
-      </li>
-    </ul>
-    
-    <!-- 避免使用索引作为key -->
-    <ul>
-      <li v-for="(item, index) in items" :key="`item-${item.id}-${index}`">
-        {{ item.name }}
-      </li>
-    </ul>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const items = ref([
-  { id: 1, name: 'Item 1' },
-  { id: 2, name: 'Item 2' },
-  { id: 3, name: 'Item 3' }
-])
-</script>
-```
-
-## 🚀 最佳实践
-
-### 1. 性能优化
-- 使用`v-show`进行频繁切换
-- 使用`v-if`进行条件很少改变的场景
-- 为`v-for`提供唯一的`key`
-- 使用`v-once`渲染静态内容
-
-### 2. 代码组织
-- 保持模板简洁，复杂逻辑放在计算属性中
-- 使用有意义的变量名和函数名
-- 合理使用插槽进行组件复用
-
-### 3. 安全性
-- 谨慎使用`v-html`，避免XSS攻击
-- 验证用户输入数据
-- 使用`v-cloak`避免闪烁
+**继续深入学习 Vue 3.0 的其他特性，掌握现代前端开发的精髓！**
 
 ---
 
-**掌握Vue 3.0的模板语法，你将能够构建出功能强大、性能优秀的用户界面！** 🎉 
+*Vue 3.0 模板语法 - 让界面开发更简单，让代码更优雅* 

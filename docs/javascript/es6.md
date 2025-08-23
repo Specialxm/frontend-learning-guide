@@ -1,8 +1,8 @@
-# JavaScript ES6+ 现代特性 🚀
+# JavaScript ES6+ 现代特性
 
 ES6（ECMAScript 2015）是JavaScript语言的一次重大更新，引入了许多现代化的语法和功能。
 
-## 🎯 变量声明
+## 变量声明
 
 ### 1. let 和 const
 ```javascript
@@ -56,7 +56,7 @@ for (let i = 0; i < 3; i++) {
 // console.log(blockVar); // 错误！超出作用域
 ```
 
-## 🔧 箭头函数
+## 箭头函数
 
 ### 1. 基本语法
 ```javascript
@@ -118,7 +118,7 @@ button.addEventListener('click', () => {
 });
 ```
 
-## 📝 模板字符串
+## 模板字符串
 
 ### 1. 基本用法
 ```javascript
@@ -188,7 +188,7 @@ function i18n(strings, ...values) {
 const greeting = i18n`${'Hello'}, ${'Welcome'} to our site!`;
 ```
 
-## 🔄 解构赋值
+## 解构赋值
 
 ### 1. 数组解构
 ```javascript
@@ -256,7 +256,7 @@ function printUserInfo({ name, age, city = "未知" }) {
 printUserInfo(user);
 ```
 
-## 📚 扩展运算符
+## 扩展运算符
 
 ### 1. 数组扩展
 ```javascript
@@ -315,7 +315,7 @@ const user = {
 console.log(user); // { name: "张三", role: "admin" }
 ```
 
-## 🏗️ 类和继承
+## 类和继承
 
 ### 1. 类定义
 ```javascript
@@ -411,7 +411,7 @@ console.log(cat.speak()); // 咪咪喵喵叫
 console.log(dog.getInfo()); // 小白是一只金毛
 ```
 
-## 🔧 模块系统
+## 模块系统
 
 ### 1. 导出和导入
 ```javascript
@@ -485,7 +485,7 @@ async function loadModule() {
 }
 ```
 
-## 🔄 异步编程
+## 异步编程
 
 ### 1. Promise
 ```javascript
@@ -597,7 +597,7 @@ async function handleErrors() {
 }
 ```
 
-## 🔍 其他新特性
+## 其他新特性
 
 ### 1. 默认参数和剩余参数
 ```javascript
@@ -659,7 +659,7 @@ console.log(colors.includes("绿")); // true
 console.log(colors.includes("黄")); // false
 ```
 
-## 💡 最佳实践
+## 最佳实践
 
 ### 1. 现代JavaScript编码风格
 ```javascript
@@ -714,7 +714,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 ```
 
-## 🎯 总结
+## 总结
 
 ES6+ 为JavaScript带来了现代化的语法和强大的功能：
 
@@ -728,7 +728,7 @@ ES6+ 为JavaScript带来了现代化的语法和强大的功能：
 8. **异步编程** - Promise、async/await
 9. **其他特性** - 默认参数、剩余参数、新数组方法
 
-## 📖 延伸阅读
+## 延伸阅读
 
 - **[MDN - ES6 指南](https://es6.ruanyifeng.com/)** - ES6 新特性详解
 - **[ECMAScript 规范](https://tc39.es/ecma262/)** - JavaScript 语言标准

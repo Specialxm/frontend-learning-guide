@@ -1,8 +1,8 @@
-# JavaScript 数组操作 📚
+# JavaScript 数组操作
 
 数组是JavaScript中最常用的数据结构之一，它提供了丰富的方法来操作和转换数据。
 
-## 🎯 数组基础
+## 数组基础
 
 ### 1. 创建数组
 ```javascript
@@ -37,7 +37,7 @@ console.log(animals.indexOf("兔子")); // 2
 console.log(animals.includes("鸟"));  // true
 ```
 
-## 🔧 数组方法
+## 数组方法
 
 ### 1. 添加和删除元素
 ```javascript
@@ -95,7 +95,7 @@ console.log(spreadCombined); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const arrCopy = [...arr1]; // 浅拷贝
 ```
 
-## 🔍 数组查找和过滤
+## 数组查找和过滤
 
 ### 1. 查找方法
 ```javascript
@@ -145,7 +145,7 @@ scores.sort((a, b) => b - a); // 降序
 console.log(scores); // [96, 92, 88, 85, 78]
 ```
 
-## 🔄 数组转换
+## 数组转换
 
 ### 1. map() 方法
 ```javascript
@@ -212,7 +212,7 @@ const result = numbers.flatMap(num =>
 console.log(result); // [4, 8]
 ```
 
-## 🔍 数组测试
+## 数组测试
 
 ### 1. 测试方法
 ```javascript
@@ -231,7 +231,7 @@ console.log(numbers.includes(6)); // true
 console.log(numbers.includes(5)); // false
 ```
 
-## 🔧 高级数组操作
+## 高级数组操作
 
 ### 1. 数组去重
 ```javascript
@@ -302,7 +302,7 @@ const chunks = chunkArray(numbers, 3);
 console.log(chunks); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ```
 
-## 💡 性能优化技巧
+## 性能优化技巧
 
 ### 1. 避免在循环中修改数组
 ```javascript
@@ -331,7 +331,7 @@ const found = numbers.find(num => num > 3); // 找到第一个就停止
 const exists = numbers.some(num => num > 3); // 找到第一个就返回true
 ```
 
-## 🎯 总结
+## 总结
 
 数组是JavaScript中最强大的数据结构之一，掌握好数组方法对于数据处理至关重要：
 
@@ -343,7 +343,7 @@ const exists = numbers.some(num => num > 3); // 找到第一个就返回true
 6. **高级技巧** - 去重、分组、分块
 7. **性能优化** - 避免在循环中修改数组
 
-## 📖 延伸阅读
+## 延伸阅读
 
 - **[MDN - 数组](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)** - 数组方法和属性详解
 - **[MDN - 数组方法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Indexed_collections#数组方法)** - 数组操作指南
