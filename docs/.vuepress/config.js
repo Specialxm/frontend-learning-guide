@@ -24,7 +24,10 @@ module.exports = {
           children: [
             '/html/',
             '/html/basic-structure',
-            '/html/elements'
+            '/html/elements',
+            '/html/forms',
+            '/html/semantic',
+            '/html/multimedia'
           ]
         }
       ],
@@ -35,7 +38,12 @@ module.exports = {
           children: [
             '/css/',
             '/css/selectors',
-            '/css/box-model'
+            '/css/box-model',
+            '/css/layout',
+            '/css/flexbox',
+            '/css/grid',
+            '/css/responsive',
+            '/css/animations',
           ]
         }
       ],
@@ -46,7 +54,13 @@ module.exports = {
           children: [
             '/javascript/',
             '/javascript/basics',
-            '/javascript/functions'
+            '/javascript/functions',
+            '/javascript/objects',
+            '/javascript/arrays',
+            '/javascript/dom',
+            '/javascript/events',
+            '/javascript/es6',
+            '/javascript/async'
           ]
         }
       ]
