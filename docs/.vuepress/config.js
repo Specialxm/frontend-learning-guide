@@ -13,7 +13,7 @@ module.exports = {
       { text: 'HTML', link: '/html/' },
       { text: 'CSS', link: '/css/' },
       { text: 'JavaScript', link: '/javascript/' },
-      { text: 'GitHub', link: 'https://github.com/yourusername/frontend-learning-guide' }
+      { text: 'GitHub', link: 'https://github.com/Specialxm/frontend-learning-guide' }
     ],
     
     sidebar: {
@@ -52,7 +52,7 @@ module.exports = {
       ]
     },
     
-    repo: 'yourusername/frontend-learning-guide',
+    repo: 'Specialxm/frontend-learning-guide',
     repoLabel: 'GitHub',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',

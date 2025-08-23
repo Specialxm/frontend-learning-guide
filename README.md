@@ -87,7 +87,7 @@ frontend-learning-guide/
 
 ## 🌐 在线预览
 
-访问 [在线文档](https://yourusername.github.io/frontend-learning-guide) 查看完整内容。
+访问 [在线文档](https://specialxm.github.io/frontend-learning-guide) 查看完整内容。
 
 ## 🤝 贡献
 
