@@ -1,0 +1,28 @@
+{
+  "name": "frontend-learning-guide",
+  "version": "1.0.0",
+  "description": "前端学习指南 - HTML、CSS、JavaScript 完整教程",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "clean": "vuepress clean docs",
+    "deploy": "pnpm build && gh-pages -d docs/.vuepress/dist"
+  },
+  "keywords": [
+    "frontend",
+    "html",
+    "css",
+    "javascript",
+    "vuepress",
+    "tutorial",
+    "learning"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.9.10",
+    "gh-pages": "^6.3.0"
+  },
+  "packageManager": "pnpm@8.0.0"
+} 
