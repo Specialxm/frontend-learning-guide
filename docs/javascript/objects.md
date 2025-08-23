@@ -359,4 +359,11 @@ users.forEach(user => {
 4. **现代特性** - 静态方法、私有字段、解构展开
 5. **最佳实践** - 设计原则、性能优化
 
+## 📖 延伸阅读
+
+- **[MDN - 对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects)** - 对象操作详解
+- **[MDN - 类](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)** - ES6类语法详解
+- **[MDN - 原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)** - 原型继承机制
+- **[MDN - 私有字段](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/Private_class_fields)** - 私有字段语法
+
 通过不断练习和实践，你将能够熟练运用对象编程来构建复杂的应用程序！ 

@@ -343,4 +343,10 @@ const exists = numbers.some(num => num > 3); // 找到第一个就返回true
 6. **高级技巧** - 去重、分组、分块
 7. **性能优化** - 避免在循环中修改数组
 
+## 📖 延伸阅读
+
+- **[MDN - 数组](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)** - 数组方法和属性详解
+- **[MDN - 数组方法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Indexed_collections#数组方法)** - 数组操作指南
+- **[MDN - 迭代器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Iterators_and_Generators)** - 迭代器和生成器
+
 通过熟练运用这些方法，你将能够高效地处理各种数据操作任务！ 

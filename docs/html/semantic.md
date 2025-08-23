@@ -448,6 +448,11 @@
 - 忘记添加alt属性
 - 语义标签使用不当
 
----
+## 🔗 相关资源
 
-**下一步：学习 [多媒体元素](./multimedia.md)** ➡️ 
+- **[MDN - HTML语义化](https://developer.mozilla.org/zh-CN/docs/Glossary/Semantics)** - 语义化HTML的完整指南
+- **[W3C - HTML5语义化](https://www.w3.org/TR/html52/semantics.html)** - HTML5语义化标签规范
+- **[ARIA标签使用指南](https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA)** - 增强可访问性的ARIA属性
+- **[HTML语义化最佳实践](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/HTML_text_fundamentals)** - HTML文本和结构的最佳实践
+
+--- 

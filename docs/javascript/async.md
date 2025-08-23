@@ -765,4 +765,12 @@ async function processBatch(items, processor, batchSize = 5) {
 4. **实际应用** - API调用、文件操作、定时器动画
 5. **最佳实践** - 错误处理策略、性能优化
 
+## 📖 延伸阅读
+
+- **[MDN - Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)** - Promise 对象详解
+- **[MDN - async/await](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)** - 异步函数语法
+- **[MDN - 事件循环](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop)** - JavaScript 事件循环机制
+- **[Promise A+ 规范](https://tsejx.github.io/javascript-guidebook/standard-built-in-objects/control-abstraction-objects/promise-standard/)** - Promise 标准规范
+- **[异步编程最佳实践](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Asynchronous)** - MDN 异步编程指南
+
 掌握这些异步编程技术，将使你能够构建高效、响应式的JavaScript应用程序！ 

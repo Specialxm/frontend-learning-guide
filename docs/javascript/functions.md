@@ -322,6 +322,10 @@ getUserInfo(-1);
 4. **使用默认参数和剩余参数**
 5. **优先使用箭头函数**
 
----
+## 📖 延伸阅读
 
-**下一步：学习 [对象](./objects.md)** ➡️ 
+- **[MDN - 函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions)** - 函数详解和最佳实践
+- **[MDN - 箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)** - 箭头函数语法和用法
+- **[MDN - this关键字](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)** - this关键字的详细说明
+
+ 

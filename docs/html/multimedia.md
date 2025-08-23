@@ -655,6 +655,15 @@ function stopDrawing() {
 - 使用过大的媒体文件
 - 忽略移动端优化
 
+## 🔗 相关资源
+
+- **[MDN - HTML多媒体](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding)** - HTML多媒体元素完整指南
+- **[W3C - HTML5多媒体](https://www.w3.org/TR/html52/semantics-embedded-content.html)** - HTML5多媒体规范
+- **[响应式图片指南](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)** - 创建响应式图片的最佳实践
+- **[HTML5音频和视频](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content)** - 音频和视频元素使用指南
+- **[Canvas绘图教程](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)** - Canvas 2D绘图API教程
+- **[WebP和AVIF格式](https://developers.google.com/speed/webp)** - 现代图片格式介绍
+
 ---
 
 **恭喜！你已经完成了HTML部分的学习！** 🎉

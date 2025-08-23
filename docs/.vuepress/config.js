@@ -12,8 +12,7 @@ module.exports = {
       { text: '首页', link: '/' },
       { text: 'HTML', link: '/html/' },
       { text: 'CSS', link: '/css/' },
-      { text: 'JavaScript', link: '/javascript/' },
-      { text: 'GitHub', link: 'https://github.com/Specialxm/frontend-learning-guide' }
+      { text: 'JavaScript', link: '/javascript/' }
     ],
     
     sidebar: {
@@ -67,13 +66,13 @@ module.exports = {
     },
     
     repo: 'Specialxm/frontend-learning-guide',
-    repoLabel: 'GitHub',
+    repoLabel: '给作者的 Github 点个 star 吧！',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '最后更新',
     
     // 导航栏和侧边栏的设置
-    smoothScroll: true,
+    smoothScroll: false,
     search: true,
     searchMaxSuggestions: 10,
     

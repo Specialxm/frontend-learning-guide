@@ -327,6 +327,10 @@ HTML元素是构建网页的基础，每个元素都有特定的语义和功能�
 3. **合理使用表单验证**
 4. **保持代码结构清晰**
 
----
+## 🔗 相关资源
 
-**下一步：学习 [表单处理](./forms.md)** ➡️ 
+- **[MDN - HTML元素参考](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)** - 完整的HTML元素列表和说明
+- **[W3C - HTML5元素](https://www.w3.org/TR/html52/semantics.html)** - HTML5语义化元素规范
+- **[HTML可访问性指南](https://developer.mozilla.org/zh-CN/docs/Learn/Accessibility/HTML)** - 创建可访问的HTML内容
+
+--- 

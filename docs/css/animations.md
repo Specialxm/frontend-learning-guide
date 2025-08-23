@@ -654,8 +654,5 @@ CSS动画的优势：
 - [响应式设计](./responsive.md) - 适配不同设备
 - [动画效果](./animations.md) - CSS动画和过渡
 
-**继续学习建议：**
-- 实践项目开发
-- 学习JavaScript交互
-- 探索现代CSS框架
-- 关注CSS新特性 
+
+**下一步：开始学习 [JavaScript 编程](../javascript/)** ➡️ 

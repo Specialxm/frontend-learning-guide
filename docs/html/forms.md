@@ -268,6 +268,12 @@ input:required {
 - 缺少必填字段验证
 - 表单提交后没有反馈
 
----
+## 🔗 相关资源
 
-**下一步：学习 [语义化标签](./semantic.md)** ➡️ 
+- **[MDN - HTML表单指南](https://developer.mozilla.org/zh-CN/docs/Learn/Forms)** - 完整的表单创建教程
+- **[W3C - HTML5表单](https://www.w3.org/TR/html52/sec-forms.html)** - HTML5表单规范
+- **[HTML表单验证](https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Form_validation)** - 表单验证最佳实践
+- **[可访问的表单设计](https://developer.mozilla.org/zh-CN/docs/Learn/Forms/How_to_structure_a_web_form)** - 创建可访问的表单
+- **[CSS表单样式](https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Styling_web_forms)** - 美化表单外观
+
+--- 

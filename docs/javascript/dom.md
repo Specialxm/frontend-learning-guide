@@ -514,4 +514,11 @@ DOM操作是前端开发的核心技能，掌握好这些技术对于构建交�
 7. **动态内容** - 模板字符串、数据绑定
 8. **性能优化** - 批量操作、事件委托、防抖节流
 
+## 📖 延伸阅读
+
+- **[MDN - DOM](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)** - DOM API 完整参考
+- **[MDN - 选择器](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelector)** - querySelector 方法详解
+- **[MDN - 事件](https://developer.mozilla.org/zh-CN/docs/Web/Events)** - 事件类型和处理
+- **[Web性能优化](https://developer.mozilla.org/zh-CN/docs/Web/Performance)** - 性能优化最佳实践
+
 通过熟练运用这些DOM操作技术，你将能够创建丰富、动态的网页应用！ 

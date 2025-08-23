@@ -728,4 +728,12 @@ ES6+ 为JavaScript带来了现代化的语法和强大的功能：
 8. **异步编程** - Promise、async/await
 9. **其他特性** - 默认参数、剩余参数、新数组方法
 
+## 📖 延伸阅读
+
+- **[MDN - ES6 指南](https://es6.ruanyifeng.com/)** - ES6 新特性详解
+- **[ECMAScript 规范](https://tc39.es/ecma262/)** - JavaScript 语言标准
+- **[Babel 官网](https://babeljs.io/)** - JavaScript 编译器
+- **[ES6 兼容性表](https://compat-table.github.io/compat-table/es6/)** - 浏览器支持情况
+- **[现代 JavaScript 教程](https://javascript.info/)** - 深入浅出的现代 JS 教程
+
 掌握这些现代特性，将使你的JavaScript代码更加简洁、可读和强大！ 

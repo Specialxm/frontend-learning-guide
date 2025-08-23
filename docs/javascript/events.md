@@ -602,4 +602,11 @@ eventManager.cleanup();
 7. **事件委托** - 动态元素处理、性能优化
 8. **性能优化** - 防抖节流、事件清理
 
+## 📖 延伸阅读
+
+- **[MDN - 事件](https://developer.mozilla.org/zh-CN/docs/Web/Events)** - 事件类型和处理详解
+- **[MDN - 事件监听器](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener)** - addEventListener 方法详解
+- **[MDN - 事件对象](https://developer.mozilla.org/zh-CN/docs/Web/API/Event)** - Event 接口参考
+- **[MDN - 自定义事件](https://developer.mozilla.org/zh-CN/docs/Web/API/CustomEvent)** - CustomEvent 创建和触发
+
 通过熟练运用这些事件处理技术，你将能够创建流畅、响应式的用户界面！ 

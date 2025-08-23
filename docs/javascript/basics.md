@@ -235,6 +235,9 @@ alert(`计算结果：${result}`);
 4. **注意类型转换**
 5. **使用有意义的变量名**
 
----
+## 📖 延伸阅读
 
-**下一步：学习 [函数](./functions.md)** ➡️ 
+- **[MDN - 变量声明](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types#变量声明)** - var、let、const 的区别
+- **[MDN - 数据类型](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures)** - JavaScript 数据结构详解
+
+ 

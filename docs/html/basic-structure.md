@@ -97,6 +97,10 @@ HTML文档有固定的结构，理解这个结构是学习HTML的第一步。
 - 属性值缺少引号
 - 嵌套顺序错误
 
----
+## 🔗 相关资源
 
-**下一步：学习 [HTML元素](./elements.md)** ➡️ 
+- **[MDN - HTML文档结构](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)** - 详细的HTML文档结构说明
+- **[W3C - HTML5 DOCTYPE](https://www.w3.org/TR/html52/syntax.html#the-doctype)** - DOCTYPE声明规范
+- **[HTML语义化指南](https://developer.mozilla.org/zh-CN/docs/Glossary/Semantics)** - 语义化HTML的最佳实践
+
+--- 
