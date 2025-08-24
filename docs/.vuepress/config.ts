@@ -1,6 +1,7 @@
 import { defineUserConfig } from "vuepress";
 import { hopeTheme } from "vuepress-theme-hope";
 import { viteBundler } from "@vuepress/bundler-vite";
+import { searchPlugin } from "@vuepress/plugin-search";
 
 export default defineUserConfig({
   lang: "zh-CN",
@@ -14,6 +15,21 @@ export default defineUserConfig({
   ],
 
   bundler: viteBundler(),
+
+  plugins: [
+    searchPlugin({
+      // 搜索配置
+      locales: {
+        '/': {
+          placeholder: '搜索文档...',
+        },
+      },
+      // 最大搜索建议数
+      maxSuggestions: 10,
+      // 热键
+      hotKeys: ['s', '/'],
+    }),
+  ],
 
   theme: hopeTheme({
     // 主题配置
