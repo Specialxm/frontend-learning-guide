@@ -38,6 +38,7 @@ export default defineUserConfig({
       { text: 'HTML', link: '/html/' },
       { text: 'CSS', link: '/css/' },
       { text: 'JavaScript', link: '/javascript/' },
+      { text: 'Vue3.0', link: '/vue3/' },
       { text: '性能优化', link: '/performance/' }
     ],
 
@@ -94,6 +95,21 @@ export default defineUserConfig({
           ]
         }
       ],
+      '/vue3/': [
+        {
+          text: 'Vue3.0 学习指南',
+          children: [
+            '/vue3/',
+            '/vue3/basics',
+            '/vue3/composition-api',
+            '/vue3/reactivity',
+            '/vue3/components',
+            '/vue3/performance',
+            '/vue3/typescript',
+            '/vue3/engineering'
+          ]
+        }
+      ],
       '/performance/': [
         {
           text: '前端性能优化指南',
@@ -105,8 +121,7 @@ export default defineUserConfig({
             '/performance/metrics-calculation',
             '/performance/performance-analysis',
             '/performance/network-optimization',
-            '/performance/rendering-optimization',
-            '/performance/vue3-optimization'
+            '/performance/rendering-optimization'
           ]
         }
       ]

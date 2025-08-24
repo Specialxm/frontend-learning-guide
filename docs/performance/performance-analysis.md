@@ -1,10 +1,23 @@
 # 问题分析和定位 - 检测工具
 
+## 📚 学习指导
+
+**本章重点**：学习使用专业的性能分析工具快速定位和解决性能问题。
+
+**学习目标**：
+- 掌握Chrome DevTools的性能分析功能
+- 学会使用Lighthouse进行性能审计
+- 建立系统化的性能问题诊断流程
+
+**前置知识**：建议先掌握 [性能指标计算](./metrics-calculation.md) 了解如何测量性能数据。
+
+**后续学习**：掌握问题诊断后，建议学习 [网络层面优化](./network-optimization.md) 和 [渲染层面优化](./rendering-optimization.md) 了解具体的优化方法。
+
 ## 性能问题分析的重要性
 
 性能问题往往不是显而易见的，需要通过专业的工具和方法来发现和定位。本章将介绍各种性能分析工具的使用方法，帮助您快速识别和解决性能瓶颈。
 
-## 1. 浏览器开发者工具
+## 1. 浏览器开发者工具 ⚡ **技术重点**
 
 ### Chrome DevTools Performance 面板
 
@@ -53,7 +66,7 @@
 - 预期效果：减少请求数量30%，提升加载速度25%
 ```
 
-## 2. Lighthouse 性能审计
+## 2. Lighthouse 性能审计 🚀 **实战技能**
 
 ### Lighthouse 功能特点
 
@@ -101,13 +114,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: |
-            https://example.com
-            https://example.com/products
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+        run: |
+          npm install -g lighthouse
+          lighthouse ${{ secrets.SITE_URL }} --output html
 ```
 
 ## 3. WebPageTest 深度分析
@@ -358,14 +367,35 @@ function checkPerformanceAlerts(metrics) {
 }
 ```
 
-## 总结
+## 📚 学习总结
 
-性能问题分析和定位是一个系统性的过程，需要：
+### 关键知识点回顾
+1. **Chrome DevTools**：浏览器内置的性能分析工具
+2. **Lighthouse**：Google官方的性能审计工具
+3. **性能分析流程**：从问题发现到解决方案的完整流程
+4. **工具集成**：如何将性能监控集成到开发流程中
 
-1. **选择合适的工具**：根据具体需求选择分析工具
-2. **建立监控体系**：持续监控关键性能指标
-3. **深入分析问题**：找到性能问题的根本原因
-4. **制定优化策略**：制定有针对性的优化方案
-5. **验证优化效果**：用数据证明优化的价值
+### 面试重点 🔥
+- 性能分析工具的使用方法
+- 性能问题的诊断流程
+- 性能监控的自动化实现
 
-在下一章节中，我们将学习网络层面的具体优化策略。 
+### 技术要点 ⚡
+- **DevTools使用**：Performance和Network面板的分析方法
+- **Lighthouse审计**：性能评分的解读和优化建议
+- **CI/CD集成**：自动化性能监控的实现
+
+## 🚀 下一步学习
+
+掌握了性能问题诊断方法后，您需要学习具体的优化策略：
+
+**网络层面优化**：
+- **[网络层面优化](./network-optimization.md)** - 学习DNS、CDN、缓存等网络优化策略
+
+**渲染层面优化**：
+- **[渲染层面优化](./rendering-optimization.md)** - 学习DOM、CSS、JavaScript等渲染优化技巧
+
+这些优化策略将帮助您：
+- 解决具体的性能问题
+- 提升页面加载速度
+- 改善用户交互体验 

@@ -52,6 +52,15 @@ npm run deploy
 - 渲染优化
 - Vue3优化
 
+### Vue3.0 学习
+- [核心基础](./vue3/basics.md)
+- [Composition API](./vue3/composition-api.md)
+- [响应式系统](./vue3/reactivity.md)
+- [组件化开发](./vue3/components.md)
+- [性能优化](./vue3/performance.md)
+- [TypeScript 集成](./vue3/typescript.md)
+- [工程化配置](./vue3/engineering.md)
+
 ## 🔧 技术栈
 
 - **文档框架**: VuePress 2.x

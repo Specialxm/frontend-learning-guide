@@ -1,10 +1,23 @@
 # 渲染层面优化
 
+## 📚 学习指导
+
+**本章重点**：学习浏览器渲染层面的性能优化技巧，包括DOM操作、CSS优化、JavaScript执行优化等。
+
+**学习目标**：
+- 掌握关键渲染路径的优化方法
+- 学会减少重排重绘的DOM操作技巧
+- 理解JavaScript执行优化和事件处理优化
+
+**前置知识**：建议先掌握 [网络层面优化](./network-optimization.md) 了解网络优化策略。
+
+**后续学习**：掌握渲染优化后，建议学习 [Vue3.0性能优化](../vue3/performance.md) 了解框架层面的优化技巧。
+
 ## 渲染优化的重要性
 
 渲染层面优化是前端性能优化的核心，直接影响用户交互的流畅度和页面的响应速度。当网络资源加载完成后，浏览器的渲染性能就成为用户体验的关键因素。
 
-## 1. 关键渲染路径优化
+## 1. 关键渲染路径优化 ⚡ **技术重点**
 
 ### 渲染流程理解
 
@@ -55,7 +68,7 @@ HTML解析 → DOM树构建 → CSS解析 → CSSOM构建 → 渲染树 → 布�
 - 优化效果：首屏显示速度提升40%
 ```
 
-## 2. DOM操作优化
+## 2. DOM操作优化 🚀 **实战技能**
 
 ### 减少DOM访问
 
@@ -98,14 +111,12 @@ function handleClick() {
 }
 
 // 优化后：缓存DOM引用
-function handleClick() {
-  const button = document.getElementById('btn');
-  const text = document.getElementById('text'); // 查询一次
-  
-  button.addEventListener('click', () => {
-    text.style.color = 'red';
-  });
-}
+const button = document.getElementById('btn');
+const text = document.getElementById('text');
+
+button.addEventListener('click', () => {
+  text.style.color = 'red'; // 使用缓存的引用
+});
 ```
 
 ### 虚拟DOM优化
@@ -515,18 +526,33 @@ element.addEventListener('scroll', throttledScroll);
 - 电池消耗：最小化
 ```
 
-## 总结
+## 📚 学习总结
 
-渲染层面优化是前端性能优化的核心，通过合理的优化策略可以显著提升用户体验：
+### 关键知识点回顾
+1. **关键渲染路径**：DOM构建、CSSOM构建、渲染树合并
+2. **阻塞资源优化**：CSS和JavaScript的加载优化
+3. **DOM操作优化**：批量操作、查询缓存、虚拟DOM
+4. **CSS优化**：选择器优化、动画优化、布局优化
+5. **JavaScript优化**：执行优化、事件优化、内存管理
 
-1. **关键渲染路径**：优化阻塞资源，提升首屏显示速度
-2. **DOM操作**：减少DOM访问，使用虚拟DOM
-3. **重排重绘**：批量更新，使用CSS类切换
-4. **图片媒体**：懒加载、响应式、格式优化
-5. **字体加载**：预加载、子集化、显示策略
-6. **JavaScript执行**：代码分割、异步处理、Web Workers
-7. **动画过渡**：CSS动画、硬件加速、requestAnimationFrame
-8. **内存管理**：防止泄漏、及时清理
-9. **移动端优化**：触摸事件、性能指标
+### 面试重点 🔥
+- 关键渲染路径和阻塞原理
+- DOM操作优化的具体方法
+- 重排重绘的避免技巧
+- 虚拟DOM的优势和实现
 
-在下一章节中，我们将学习Vue3.0的性能优化特性。 
+### 技术要点 ⚡
+- **渲染机制**：浏览器渲染流程和优化点
+- **DOM优化**：批量操作、Fragment使用、查询缓存
+- **CSS优化**：选择器性能、动画性能、布局性能
+
+## 🚀 下一步学习
+
+掌握了渲染层面的优化技巧后，您需要学习框架层面的性能优化：
+
+**[Vue3.0性能优化](../vue3/performance.md)** - 学习Vue3框架的性能优化特性，包括Composition API、响应式系统、编译优化等。
+
+这些框架优化将帮助您：
+- 利用框架内置的性能优化特性
+- 编写更高效的Vue组件
+- 构建高性能的Vue应用 
