@@ -2,16 +2,64 @@ import { defineUserConfig } from "vuepress";
 import { hopeTheme } from "vuepress-theme-hope";
 import { viteBundler } from "@vuepress/bundler-vite";
 import { searchPlugin } from "@vuepress/plugin-search";
+import { sitemapPlugin } from "@vuepress/plugin-sitemap";
+import { seoPlugin } from "@vuepress/plugin-seo";
 
 export default defineUserConfig({
   lang: "zh-CN",
-  title: "前端学习指南",
-  description: "HTML、CSS、JavaScript 完整学习教程",
+  title: "前端学习指南 - 完整的前端开发教程",
+  description: "零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术，实战项目驱动，面试重点突出",
   base: "/frontend-learning-guide/",
   
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
+    ['meta', { name: 'theme-color', content: '#0366d6' }],
+    
+    // SEO优化 - 关键词
+    ['meta', { name: 'keywords', content: '前端开发,HTML,CSS,JavaScript,Vue3,性能优化,前端工程化,前端教程,前端学习,前端面试,前端技术,Web开发,响应式设计,TypeScript,微前端,组件库' }],
+    
+    // SEO优化 - 作者信息
+    ['meta', { name: 'author', content: 'Specialxm' }],
+    ['meta', { name: 'robots', content: 'index,follow' }],
+    
+    // Open Graph - 社交媒体分享优化
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: '前端学习指南' }],
+    ['meta', { property: 'og:title', content: '前端学习指南 - 完整的前端开发教程' }],
+    ['meta', { property: 'og:description', content: '零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术' }],
+    ['meta', { property: 'og:image', content: '/og-image.png' }],
+    ['meta', { property: 'og:url', content: 'https://specialxm.github.io/frontend-learning-guide/' }],
+    
+    // Twitter Card
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: '前端学习指南 - 完整的前端开发教程' }],
+    ['meta', { name: 'twitter:description', content: '零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术' }],
+    ['meta', { name: 'twitter:image', content: '/og-image.png' }],
+    
+    // 结构化数据 - JSON-LD
+    ['script', { type: 'application/ld+json' }, JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "前端学习指南",
+      "description": "零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术",
+      "url": "https://specialxm.github.io/frontend-learning-guide/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://specialxm.github.io/frontend-learning-guide/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Specialxm",
+        "url": "https://github.com/Specialxm"
+      },
+      "inLanguage": "zh-CN",
+      "isAccessibleForFree": true,
+      "license": "https://opensource.org/licenses/MIT"
+    })],
+    
     // 添加Mermaid主题切换支持
     ['script', {}, `
       // Mermaid主题跟随配置
@@ -74,14 +122,28 @@ export default defineUserConfig({
       // 搜索配置
       locales: {
         '/': {
-          placeholder: '搜索文档...',
+          placeholder: '搜索前端学习内容...',
         },
       },
       // 最大搜索建议数
-      maxSuggestions: 10,
+      maxSuggestions: 15,
       // 热键
-      hotKeys: ['s', '/'],
+      hotKeys: ['s', '/', 'ctrl+k'],
     }),
+    
+    // Sitemap插件 - 自动生成站点地图
+    sitemapPlugin({
+      hostname: 'https://specialxm.github.io/frontend-learning-guide/',
+      changefreq: 'weekly'
+    }),
+    
+    // SEO插件 - 自动优化页面SEO
+    seoPlugin({
+      hostname: 'https://specialxm.github.io/frontend-learning-guide/',
+      author: 'Specialxm',
+      twitterID: 'Specialxm',
+      isArticle: (page) => page.path !== '/',
+    })
   ],
 
   theme: hopeTheme({
@@ -99,7 +161,7 @@ export default defineUserConfig({
     sidebar: {
       '/': [
         {
-          text: '指南',
+          text: '快速开始',
           children: [
             '/'
           ]
@@ -233,6 +295,7 @@ export default defineUserConfig({
 
     // 其他主题配置
     repo: 'Specialxm/frontend-learning-guide',
+    repoLabel: '查看源码',
     editLink: true,
     lastUpdated: true,
     
@@ -240,19 +303,68 @@ export default defineUserConfig({
     pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime"],
     
     // 页脚
-    footer: "MIT Licensed | Copyright © 2024-present",
+    footer: "MIT Licensed | Copyright © 2024-present | 前端学习指南",
     
-    // 显示页面标题
-    displayFooter: true,
+    // 博客功能
+    blog: {
+      name: "前端学习指南",
+      avatar: "/avatar.png",
+      description: "零基础到高级前端工程师的完整学习路径",
+      intro: "/intro/",
+      medias: {
+        GitHub: "https://github.com/Specialxm",
+        Gitee: "https://gitee.com/Specialxm",
+        Email: "mailto:specialxm@example.com"
+      }
+    },
     
-    // 深色模式配置
-    darkmode: "toggle",
+    // 加密功能
+    encrypt: {
+      config: {
+        "/guide/encrypt.html": ["1234"],
+      },
+    },
     
     // Mermaid图表配置 - 支持主题切换
     markdown: {
       mermaid: true,
+      // 脚注
+      footnote: true,
+      // 数学公式
+      math: true,
     },
     
-
+    // 插件配置
+    plugins: {
+      // 复制代码
+      copyCode: {
+        showInMobile: true,
+        duration: 2000,
+      },
+      // 图片预览
+      photoSwipe: {
+        selector: ".theme-hope-content :not(a) > img",
+      },
+    },
   }),
+  
+  // 额外的构建配置
+  markdown: {
+    // 自动生成目录
+    toc: {
+      level: [1, 2, 3, 4],
+    },
+  },
+  
+  // 构建输出配置
+  dest: 'docs/.vuepress/dist',
+  temp: 'docs/.vuepress/.temp',
+  cache: 'docs/.vuepress/.cache',
+  
+  // 开发服务器配置
+  port: 8080,
+  open: true,
+  
+  // 调试配置
+  debug: false,
 }); 

@@ -21,109 +21,85 @@
 
 ```mermaid
 graph TD
-    %% 主要流程 - 垂直布局，链路清晰
-    A[需求分析] --> B[技术选型]
-    B --> C[架构设计]
-    C --> D[目录结构设计]
-    D --> E[工程化配置]
-    E --> F[开发规范制定]
-    F --> G[部署方案设计]
-    G --> H[监控体系建立]
-    
-    %% 需求分析子流程 - 右侧展开
-    A --> A1[功能需求]
+    %% 第一阶段：需求分析
+    A[需求分析] --> A1[功能需求]
     A --> A2[性能需求]
-    A --> A3[安全需求]
-    A --> A4[扩展需求]
+    A --> A3[技术约束]
     
-    %% 技术选型子流程 - 右侧展开
-    B --> B1[框架选择]
+    %% 第二阶段：技术选型
+    B[技术选型] --> B1[框架选择]
     B --> B2[构建工具]
     B --> B3[状态管理]
-    B --> B4[UI组件库]
     
-    %% 架构设计子流程 - 右侧展开
-    C --> C1[分层架构]
+    %% 第三阶段：架构设计
+    C[架构设计] --> C1[分层架构]
     C --> C2[模块化设计]
     C --> C3[数据流设计]
-    C --> C4[接口设计]
     
-    %% 目录结构子流程 - 右侧展开
-    D --> D1[功能模块划分]
-    D --> D2[公共资源组织]
-    D --> D3[配置文件管理]
-    D --> D4[文档结构]
+    %% 第四阶段：工程化配置
+    D[工程化配置] --> D1[构建配置]
+    D --> D2[代码规范]
+    D --> D3[测试配置]
     
-    %% 工程化配置子流程 - 右侧展开
-    E --> E1[构建配置]
-    E --> E2[环境配置]
-    E --> E3[代码规范]
-    E --> E4[测试配置]
+    %% 第五阶段：部署与监控
+    E[部署与监控] --> E1[部署方案]
+    E[部署与监控] --> E2[监控体系]
     
-    %% 开发规范子流程 - 右侧展开
-    F --> F1[编码规范]
-    F --> F2[Git规范]
-    F --> F3[提交规范]
-    F --> F4[Review规范]
+    %% 流程连接
+    A --> B
+    B --> C
+    C --> D
+    D --> E
     
-    %% 部署方案子流程 - 右侧展开
-    G --> G1[部署环境]
-    G --> G2[CI/CD流程]
-    G --> G3[回滚策略]
-    G --> G4[监控告警]
-    
-    %% 监控体系子流程 - 右侧展开
-    H --> H1[性能监控]
-    H --> H2[错误监控]
-    H --> H3[用户行为]
-    H --> H4[业务指标]
-    
-    %% 样式设置 - 主流程突出显示
+    %% 样式设置 - 阶段突出显示
     style A fill:#e3f2fd,stroke:#1976d2,stroke-width:3px,font-weight:bold
+    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:3px,font-weight:bold
     style C fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,font-weight:bold
-    style E fill:#e8f5e8,stroke:#388e3c,stroke-width:3px,font-weight:bold
-    style H fill:#fff3e0,stroke:#f57c00,stroke-width:3px,font-weight:bold
+    style D fill:#fff3e0,stroke:#f57c00,stroke-width:3px,font-weight:bold
+    style E fill:#fce4ec,stroke:#c2185b,stroke-width:3px,font-weight:bold
     
-    %% 主流程节点样式
-    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
-    style D fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style F fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style G fill:#fce4ec,stroke:#c2185b,stroke-width:2px
-    
-    %% 子流程样式 - 淡化处理
+    %% 子流程样式
     style A1 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
     style A2 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
     style A3 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style A4 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
     style B1 fill:#e8f5e8,stroke:#388e3c,stroke-width:1px,font-size:12px
     style B2 fill:#e8f5e8,stroke:#388e3c,stroke-width:1px,font-size:12px
     style B3 fill:#e8f5e8,stroke:#388e3c,stroke-width:1px,font-size:12px
-    style B4 fill:#e8f5e8,stroke:#388e3c,stroke-width:1px,font-size:12px
     style C1 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
     style C2 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
     style C3 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
-    style C4 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
     style D1 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
     style D2 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
     style D3 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
-    style D4 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
-    style E1 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:12px
-    style E2 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:12px
-    style E3 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:12px
-    style E4 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:12px
-    style F1 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
-    style F2 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
-    style F3 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
-    style F4 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
-    style G1 fill:#fce4ec,stroke:#c2185b,stroke-width:1px,font-size:12px
-    style G2 fill:#fce4ec,stroke:#c2185b,stroke-width:1px,font-size:12px
-    style G3 fill:#fce4ec,stroke:#c2185b,stroke-width:1px,font-size:12px
-    style G4 fill:#fce4ec,stroke:#c2185b,stroke-width:1px,font-size:12px
-    style H1 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
-    style H2 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
-    style H3 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
-    style H4 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
+    style E1 fill:#fce4ec,stroke:#c2185b,stroke-width:1px,font-size:12px
+    style E2 fill:#fce4ec,stroke:#c2185b,stroke-width:1px,font-size:12px
 ```
+
+### 流程说明
+
+**第一阶段：需求分析**
+- 明确项目功能需求和业务目标
+- 确定性能指标和用户体验要求
+- 识别技术约束和限制条件
+
+**第二阶段：技术选型**
+- 选择合适的开发框架和库
+- 确定构建工具和开发环境
+- 选择状态管理方案
+
+**第三阶段：架构设计**
+- 设计分层架构和模块划分
+- 规划组件结构和数据流
+- 定义接口规范和通信机制
+
+**第四阶段：工程化配置**
+- 配置构建流程和优化策略
+- 建立代码规范和开发流程
+- 设置测试框架和CI/CD
+
+**第五阶段：部署与监控**
+- 制定部署策略和发布流程
+- 建立性能监控和错误追踪
 
 ## 1. 架构设计原则
 
@@ -262,131 +238,118 @@ class UserRegistrationService {
 
 ## 2. 目录结构设计
 
-### 2.1 标准目录结构
+### 2.1 Monorepo目录结构
 
-```mermaid
-graph TD
-    %% 主要目录 - 垂直布局，链路清晰
-    A[项目根目录] --> B[src/]
-    A --> C[public/]
-    A --> D[config/]
-    A --> E[tests/]
-    A --> F[docs/]
-    
-    %% src目录子结构 - 右侧展开
-    B --> B1[components/]
-    B --> B2[pages/]
-    B --> B3[services/]
-    B --> B4[utils/]
-    B --> B5[types/]
-    B --> B6[assets/]
-    B --> B7[styles/]
-    
-    %% components子目录 - 右侧展开
-    B1 --> B1A[common/]
-    B1 --> B1B[business/]
-    B1 --> B1C[layout/]
-    
-    %% pages子目录 - 右侧展开
-    B2 --> B2A[home/]
-    B2 --> B2B[user/]
-    B2 --> B2C[product/]
-    
-    %% services子目录 - 右侧展开
-    B3 --> B3A[api/]
-    B3 --> B3B[auth/]
-    B3 --> B3C[storage/]
-    
-    %% public目录子结构 - 右侧展开
-    C --> C1[index.html]
-    C --> C2[favicon.ico]
-    C --> C3[robots.txt]
-    
-    %% config目录子结构 - 右侧展开
-    D --> D1[webpack.config.js]
-    D --> D2[babel.config.js]
-    D --> D3[tsconfig.json]
-    D --> D4[eslint.config.js]
-    
-    %% tests目录子结构 - 右侧展开
-    E --> E1[unit/]
-    E --> E2[integration/]
-    E --> E3[e2e/]
-    
-    %% 样式设置 - 主目录突出显示
-    style A fill:#e8f5e8,stroke:#388e3c,stroke-width:3px,font-weight:bold
-    
-    %% 主要目录样式
-    style B fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style D fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
-    style F fill:#fce4ec,stroke:#c2185b,stroke-width:2px
-    
-    %% src子目录样式
-    style B1 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style B2 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style B3 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style B4 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style B5 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style B6 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    style B7 fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,font-size:12px
-    
-    %% 更深层子目录样式 - 淡化处理
-    style B1A fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B1B fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B1C fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B2A fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B2B fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B2C fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B3A fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B3B fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style B3C fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style C1 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:11px
-    style C2 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:11px
-    style C3 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:11px
-    style D1 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style D2 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style D3 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style D4 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:11px
-    style E1 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:11px
-    style E2 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:11px
-    style E3 fill:#f1f8e9,stroke:#388e3c,stroke-width:1px,font-size:11px
+```typescript
+// Monorepo目录结构
+project-root/
+├── packages/                       # 包目录
+│   ├── app/                        # 主应用包
+│   │   ├── src/
+│   │   │   ├── components/         # 应用组件
+│   │   │   ├── pages/              # 页面组件
+│   │   │   ├── services/           # 应用服务
+│   │   │   ├── types/              # 类型定义
+│   │   │   └── index.ts            # 入口文件
+│   │   ├── public/                 # 静态资源
+│   │   ├── package.json            # 包配置
+│   │   └── tsconfig.json           # TypeScript配置
+│   ├── ui/                         # UI组件库包
+│   │   ├── src/
+│   │   │   ├── components/         # UI组件
+│   │   │   ├── hooks/              # 自定义Hooks
+│   │   │   ├── types/              # 类型定义
+│   │   │   └── index.ts            # 入口文件
+│   │   ├── package.json            # 包配置
+│   │   └── tsconfig.json           # TypeScript配置
+│   ├── utils/                      # 工具函数包
+│   │   ├── src/
+│   │   │   ├── string/             # 字符串工具
+│   │   │   ├── date/               # 日期工具
+│   │   │   ├── array/              # 数组工具
+│   │   │   ├── types/              # 类型定义
+│   │   │   └── index.ts            # 入口文件
+│   │   ├── package.json            # 包配置
+│   │   └── tsconfig.json           # TypeScript配置
+│   └── api/                        # API客户端包
+│       ├── src/
+│       │   ├── client/             # API客户端
+│       │   ├── types/              # API类型定义
+│       │   ├── interceptors/       # 拦截器
+│       │   └── index.ts            # 入口文件
+│       ├── package.json            # 包配置
+│       └── tsconfig.json           # TypeScript配置
+├── apps/                           # 应用目录（可选）
+│   ├── web/                        # Web应用
+│   │   ├── src/
+│   │   ├── public/
+│   │   └── package.json
+│   └── mobile/                     # 移动端应用
+│       ├── src/
+│       └── package.json
+├── tools/                          # 工具目录
+│   ├── eslint-config/              # ESLint配置
+│   ├── typescript-config/          # TypeScript配置
+│   └── build-tools/                # 构建工具
+├── docs/                           # 文档目录
+├── package.json                    # 根包配置
+├── lerna.json                      # Lerna配置（如果使用）
+├── nx.json                         # Nx配置（如果使用）
+├── tsconfig.json                   # 根TypeScript配置
+├── .eslintrc.js                    # ESLint配置
+├── .prettierrc                     # Prettier配置
+└── README.md                       # 项目说明
 ```
 
 ### 2.2 功能模块化目录结构
 
 ```typescript
-// 功能模块化示例
-src/
-├── modules/
-│   ├── user/
-│   │   ├── components/
-│   │   ├── services/
-│   │   ├── types/
-│   │   ├── utils/
-│   │   └── index.ts
-│   ├── product/
-│   │   ├── components/
-│   │   ├── services/
-│   │   ├── types/
-│   │   ├── utils/
-│   │   └── index.ts
-│   └── order/
-│       ├── components/
-│       ├── services/
-│       ├── types/
-│       ├── utils/
-│       └── index.ts
-├── shared/
-│   ├── components/
-│   ├── services/
-│   ├── types/
-│   └── utils/
-└── app/
-    ├── components/
-    ├── services/
-    └── types/
+// 功能模块化目录结构（单仓库）
+project-root/
+├── src/
+│   ├── modules/                     # 功能模块目录
+│   │   ├── user/                    # 用户模块
+│   │   │   ├── components/          # 用户相关组件
+│   │   │   ├── services/            # 用户相关服务
+│   │   │   ├── types.ts             # 用户相关类型定义
+│   │   │   ├── utils.ts             # 用户相关工具函数
+│   │   │   └── index.ts             # 模块入口文件
+│   │   ├── product/                 # 产品模块
+│   │   │   ├── components/          # 产品相关组件
+│   │   │   ├── services/            # 产品相关服务
+│   │   │   ├── types.ts             # 产品相关类型定义
+│   │   │   ├── utils.ts             # 产品相关工具函数
+│   │   │   └── index.ts             # 模块入口文件
+│   │   └── order/                   # 订单模块
+│   │       ├── components/          # 订单相关组件
+│   │       ├── services/            # 订单相关服务
+│   │       ├── types.ts             # 订单相关类型定义
+│   │       ├── utils.ts             # 订单相关工具函数
+│   │       └── index.ts             # 模块入口文件
+│   ├── shared/                      # 公共资源目录
+│   │   ├── components/              # 公共组件
+│   │   ├── services/                # 公共服务
+│   │   ├── types.ts                 # 公共类型定义
+│   │   ├── utils.ts                 # 公共工具函数
+│   │   ├── hooks.ts                 # 公共Hooks
+│   │   ├── constants.ts             # 公共常量
+│   │   └── styles/                  # 公共样式
+│   ├── app/                         # 应用核心目录
+│   │   ├── components/              # 应用级组件
+│   │   ├── store/                   # 状态管理
+│   │   ├── router/                  # 路由配置
+│   │   └── config.ts                # 应用配置
+│   ├── pages/                       # 页面组件目录
+│   └── index.ts                     # 应用入口文件
+├── public/                          # 静态资源目录
+├── config/                          # 配置文件目录
+├── tests/                           # 测试文件目录
+├── docs/                            # 文档目录
+├── package.json                     # 项目配置
+├── tsconfig.json                    # TypeScript配置
+├── .eslintrc.js                     # ESLint配置
+├── .prettierrc                      # Prettier配置
+└── README.md                        # 项目说明
 ```
 
 ## 3. 工程化配置管理
