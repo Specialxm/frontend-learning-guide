@@ -13,7 +13,8 @@ module.exports = {
       { text: 'HTML', link: '/html/' },
       { text: 'CSS', link: '/css/' },
       { text: 'JavaScript', link: '/javascript/' },
-      { text: 'Vue 3.0', link: '/vue3/' }
+      { text: 'Vue 3.0', link: '/vue3/' },
+      { text: '性能优化', link: '/performance/' }
     ],
     
     sidebar: {
@@ -64,30 +65,20 @@ module.exports = {
           ]
         }
       ],
-      '/vue3/': [
+      '/performance/': [
         {
-          title: 'Vue 3.0 基础学习',
+          title: '前端性能优化指南',
           collapsable: false,
           children: [
-            '/vue3/',
-            '/vue3/introduction',
-            '/vue3/quick-start',
-            '/vue3/template-syntax',
-            '/vue3/composition-api',
-            '/vue3/reactive-fundamentals',
-            '/vue3/components',
-            '/vue3/advanced-features',
-            '/vue3/summary'
-          ]
-        },
-        {
-          title: 'Vue 3.0 源码深度解析',
-          collapsable: false,
-          children: [
-            '/vue3/source-code-analysis',
-            '/vue3/composition-api-source',
-            '/vue3/compiler-runtime-optimization',
-            '/vue3/advanced-features-source'
+            '/performance/',
+            '/performance/overview',
+            '/performance/page-loading-process',
+            '/performance/user-metrics',
+            '/performance/metrics-calculation',
+            '/performance/performance-analysis',
+            '/performance/network-optimization',
+            '/performance/rendering-optimization',
+            '/performance/vue3-optimization'
           ]
         }
       ]
