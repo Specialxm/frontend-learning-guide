@@ -61,6 +61,20 @@ npm run deploy
 - [TypeScript 集成](./vue3/typescript.md)
 - [工程化配置](./vue3/engineering.md)
 
+### 前端工程化
+- [项目架构与工程化](./engineering/architecture.md) - 项目架构设计原则与工程化实践
+- [工程化与编译原理](./engineering/compilation.md) - 深入理解编译原理在工程化中的应用
+- [Vite构建原理与源码剖析](./engineering/vite-deep-dive.md) - Vite核心原理与源码深度分析
+- [构建工具详解](./engineering/build-tools.md) - Vite、Rollup、tsup、tsc等工具对比与应用场景
+- [Webpack原理深度剖析](./engineering/webpack-principles.md) - Webpack核心原理与优化策略
+- [TypeScript高级应用](./engineering/typescript-advanced.md) - TypeScript在企业级项目中的高级用法
+- [ESLint编码规范与原理解析](./engineering/eslint-principles.md) - 代码质量保障工具的原理与实践
+- [Docker入门与流程编排](./engineering/docker-cicd.md) - 容器化部署与CI/CD流程设计
+- [脚手架工具原理](./engineering/scaffold-tools.md) - 企业级命令脚手架的设计与实现
+- [前端测试方案与实践](./engineering/testing-strategies.md) - 单元测试、集成测试、端到端测试的完整方案
+- [组件库架构设计与开发](./engineering/component-library.md) - 企业级组件库的设计原则与开发实践
+- [微前端架构实践](./engineering/micro-frontend.md) - 巨石应用拆分与微前端架构设计
+
 ## 🔧 技术栈
 
 - **文档框架**: VuePress 2.x

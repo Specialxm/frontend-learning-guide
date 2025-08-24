@@ -92,7 +92,8 @@ export default defineUserConfig({
       { text: 'CSS', link: '/css/' },
       { text: 'JavaScript', link: '/javascript/' },
       { text: 'Vue3.0', link: '/vue3/' },
-      { text: '性能优化', link: '/performance/' }
+      { text: '性能优化', link: '/performance/' },
+      { text: '前端工程化', link: '/engineering/' }
     ],
 
     sidebar: {
@@ -175,6 +176,56 @@ export default defineUserConfig({
             '/performance/performance-analysis',
             '/performance/network-optimization',
             '/performance/rendering-optimization'
+          ]
+        }
+      ],
+      '/engineering/': [
+        {
+          text: '前端工程化',
+          children: [
+            '/engineering/',
+            {
+              text: '基础篇',
+              children: [
+                '/engineering/architecture',
+                '/engineering/compilation'
+              ]
+            },
+            {
+              text: '构建工具篇',
+              children: [
+                '/engineering/vite-deep-dive',
+                '/engineering/build-tools',
+                '/engineering/webpack-principles'
+              ]
+            },
+            {
+              text: '开发规范篇',
+              children: [
+                '/engineering/typescript-advanced',
+                '/engineering/eslint-principles'
+              ]
+            },
+            {
+              text: '部署运维篇',
+              children: [
+                '/engineering/docker-cicd',
+                '/engineering/scaffold-tools'
+              ]
+            },
+            {
+              text: '测试与质量篇',
+              children: [
+                '/engineering/testing-strategies',
+                '/engineering/component-library'
+              ]
+            },
+            {
+              text: '架构设计篇',
+              children: [
+                '/engineering/micro-frontend'
+              ]
+            }
           ]
         }
       ]
