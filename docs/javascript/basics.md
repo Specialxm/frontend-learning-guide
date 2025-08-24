@@ -1,70 +1,99 @@
-# JavaScript 基础语法
+# JavaScript 核心基础
 
-JavaScript基础语法是学习这门语言的第一步，包括变量、数据类型、运算符等核心概念。
+## 概述
+JavaScript是一门动态类型、解释型的编程语言。掌握基础语法是学习JavaScript的第一步，这些概念将贯穿整个学习过程。
 
-## 变量声明
+## 学习目标
+- 理解变量声明和数据类型系统
+- 掌握运算符和控制结构
+- 了解类型转换和内存管理
+- 为后续学习打下坚实基础
 
-### 1. var（传统方式）
+## 变量声明与作用域
+
+### 变量声明方式
+
+#### 1. var（传统方式，不推荐）
 ```javascript
 var name = "张三";
 var age = 25;
-var isStudent = true;
 ```
+**特点：** 存在变量提升，函数作用域，可重复声明
 
-### 2. let（推荐使用）
+#### 2. let（推荐使用）
 ```javascript
 let name = "李四";
 let age = 30;
-let isStudent = false;
 ```
+**特点：** 块级作用域，不存在变量提升，不可重复声明
 
-### 3. const（常量）
+#### 3. const（常量）
 ```javascript
 const PI = 3.14159;
 const APP_NAME = "前端学习指南";
-const MAX_SIZE = 100;
 ```
+**特点：** 块级作用域，声明后不可重新赋值，引用类型内部属性可变
 
-## 数据类型
+### 作用域规则
+- **全局作用域：** 在函数外部声明的变量
+- **函数作用域：** 在函数内部声明的变量
+- **块级作用域：** 在`{}`内用`let`或`const`声明的变量
 
-### 1. 基本数据类型
+## 数据类型系统
 
-#### 字符串 (String)
+### 基本数据类型（Primitive Types）
+
+#### 1. 字符串 (String)
 ```javascript
 let firstName = "王";
 let lastName = '五';
 let fullName = `${firstName}${lastName}`; // 模板字符串
-let message = "Hello\nWorld"; // 转义字符
 ```
+**特点：** 不可变，支持转义字符，有丰富的字符串方法
 
-#### 数字 (Number)
+#### 2. 数字 (Number)
 ```javascript
 let integer = 42;
 let float = 3.14;
-let negative = -10;
 let infinity = Infinity;
 let notANumber = NaN;
 ```
+**特点：** 统一为64位浮点数，支持科学计数法
 
-#### 布尔值 (Boolean)
+#### 3. 布尔值 (Boolean)
 ```javascript
 let isTrue = true;
 let isFalse = false;
 let result = 5 > 3; // true
 ```
+**特点：** 只有两个值，常用于条件判断
 
-#### 空值 (Null)
+#### 4. 空值 (Null)
 ```javascript
 let empty = null;
 ```
+**特点：** 表示"空"或"不存在"，是对象类型
 
-#### 未定义 (Undefined)
+#### 5. 未定义 (Undefined)
 ```javascript
 let notDefined;
 let alsoUndefined = undefined;
 ```
+**特点：** 变量声明但未赋值时的默认值
 
-### 2. 引用数据类型
+#### 6. Symbol (ES6)
+```javascript
+const uniqueKey = Symbol('description');
+```
+**特点：** 唯一标识符，常用于对象属性名
+
+#### 7. BigInt (ES2020)
+```javascript
+const bigNumber = 9007199254740991n;
+```
+**特点：** 表示任意精度的整数
+
+### 引用数据类型 (Reference Types)
 
 #### 对象 (Object)
 ```javascript
@@ -75,9 +104,10 @@ let person = {
 };
 
 // 访问属性
-console.log(person.name); // 点语法
-console.log(person["age"]); // 方括号语法
+console.log(person.name);        // 点语法
+console.log(person["age"]);      // 方括号语法
 ```
+**特点：** 键值对集合，属性名可以是字符串或Symbol
 
 #### 数组 (Array)
 ```javascript
@@ -85,159 +115,181 @@ let colors = ["红", "绿", "蓝"];
 let mixed = [1, "hello", true, null];
 
 // 访问元素
-console.log(colors[0]); // 红
-console.log(colors.length); // 3
+console.log(colors[0]);         // 红
+console.log(colors.length);     // 3
+```
+**特点：** 有序集合，支持多种数据类型混合
+
+#### 函数 (Function)
+```javascript
+function greet(name) {
+    return `你好，${name}！`;
+}
+```
+**特点：** 一等公民，可以赋值给变量，作为参数传递
+
+## 类型检测与转换
+
+### 类型检测
+```javascript
+typeof "hello"      // "string"
+typeof 42           // "number"
+typeof true         // "boolean"
+typeof undefined    // "undefined"
+typeof null         // "object" (历史遗留问题)
+typeof {}           // "object"
+typeof []           // "object"
+typeof function(){} // "function"
+
+// 更准确的类型检测
+Array.isArray([])   // true
+Object.prototype.toString.call(null) // "[object Null]"
+```
+
+### 类型转换
+```javascript
+// 显式转换
+String(123)         // "123"
+Number("123")       // 123
+Boolean(1)          // true
+
+// 隐式转换
+"5" + 3             // "53" (字符串拼接)
+"5" - 3             // 2 (数字运算)
+!0                  // true (布尔转换)
 ```
 
 ## 运算符
 
-### 1. 算术运算符
+### 算术运算符
 ```javascript
-let a = 10;
-let b = 3;
-
+let a = 10, b = 3;
 console.log(a + b);   // 13 (加法)
 console.log(a - b);   // 7  (减法)
 console.log(a * b);   // 30 (乘法)
 console.log(a / b);   // 3.333... (除法)
-console.log(a % b);   // 1  (取余)
+console.log(a % b);   // 1 (取余)
 console.log(a ** b);  // 1000 (幂运算)
-console.log(a++);     // 10 (后递增)
-console.log(++a);     // 12 (前递增)
 ```
 
-### 2. 比较运算符
+### 比较运算符
 ```javascript
-let x = 5;
-let y = "5";
-
-console.log(x == y);   // true (值相等)
-console.log(x === y);  // false (值和类型都相等)
-console.log(x != y);   // false (值不相等)
-console.log(x !== y);  // true (值或类型不相等)
-console.log(x > 3);    // true (大于)
-console.log(x <= 5);   // true (小于等于)
+console.log(5 == "5");   // true (值相等)
+console.log(5 === "5");  // false (严格相等)
+console.log(5 != "5");   // false
+console.log(5 !== "5");  // true
 ```
 
-### 3. 逻辑运算符
+### 逻辑运算符
 ```javascript
-let isAdult = true;
-let hasLicense = false;
-
-console.log(isAdult && hasLicense);  // false (与)
-console.log(isAdult || hasLicense);  // true  (或)
-console.log(!isAdult);               // false (非)
+console.log(true && false);  // false (与)
+console.log(true || false);  // true (或)
+console.log(!true);          // false (非)
 ```
 
-### 4. 赋值运算符
+### 赋值运算符
 ```javascript
-let num = 10;
-
-num += 5;   // 等同于 num = num + 5
-num -= 3;   // 等同于 num = num - 3
-num *= 2;   // 等同于 num = num * 2
-num /= 4;   // 等同于 num = num / 4
-num %= 3;   // 等同于 num = num % 3
+let x = 10;
+x += 5;    // x = x + 5
+x -= 3;    // x = x - 3
+x *= 2;    // x = x * 2
 ```
 
-## 类型转换
+## 控制结构
 
-### 1. 显式转换
+### 条件语句
 ```javascript
-// 转换为字符串
-let num = 42;
-let str = String(num);        // "42"
-let str2 = num.toString();    // "42"
+// if-else
+if (age >= 18) {
+    console.log("成年人");
+} else if (age >= 12) {
+    console.log("青少年");
+} else {
+    console.log("儿童");
+}
 
-// 转换为数字
-let strNum = "123";
-let number = Number(strNum);  // 123
-let parsed = parseInt("123"); // 123
-let parsedFloat = parseFloat("3.14"); // 3.14
-
-// 转换为布尔值
-let bool = Boolean(1);        // true
-let bool2 = Boolean(0);       // false
-let bool3 = Boolean("");      // false
-let bool4 = Boolean("hello"); // true
+// 三元运算符
+let status = age >= 18 ? "成年" : "未成年";
 ```
 
-### 2. 隐式转换
+### 循环语句
 ```javascript
-// 字符串连接
-console.log("5" + 3);        // "53"
-console.log("5" - 3);        // 2
+// for循环
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
 
-// 比较转换
-console.log("5" == 5);       // true
-console.log("5" === 5);      // false
+// while循环
+let count = 0;
+while (count < 3) {
+    console.log(count);
+    count++;
+}
 
-// 布尔转换
-if ("hello") {
-    console.log("字符串非空，转换为true");
+// for...of (ES6)
+for (let color of colors) {
+    console.log(color);
 }
 ```
+
+## 内存管理
+
+### 垃圾回收机制
+- **引用计数：** 记录对象被引用的次数
+- **标记清除：** 标记可达对象，清除不可达对象
+- **分代回收：** 根据对象存活时间分代处理
+
+### 内存泄漏防范
+```javascript
+// 避免全局变量
+let globalData = []; // 可能导致内存泄漏
+
+// 及时清理事件监听器
+element.removeEventListener('click', handler);
+
+// 避免闭包陷阱
+function createLeak() {
+    const data = new Array(1000000);
+    return function() {
+        console.log(data.length); // 闭包持有data引用
+    };
+}
+```
+
+## 面试重点
+
+### 核心概念
+1. **变量提升：** `var`声明的变量会被提升到作用域顶部
+2. **暂时性死区：** `let`和`const`声明的变量在声明前不可访问
+3. **类型转换：** 了解隐式转换的规则和陷阱
+4. **作用域链：** 变量查找的机制和规则
+
+### 常见陷阱
+1. **`typeof null`返回`"object"`** - 历史遗留问题
+2. **浮点数精度问题** - 0.1 + 0.2 !== 0.3
+3. **隐式类型转换** - 可能导致意外结果
+4. **变量提升** - 可能造成代码执行顺序混乱
 
 ## 实践练习
 
-创建一个简单的计算器：
+### 基础练习
+1. 声明不同类型的变量并测试类型
+2. 练习各种运算符的使用
+3. 编写简单的条件判断和循环程序
+4. 测试类型转换的各种情况
 
-```javascript
-// 获取用户输入
-let num1 = prompt("请输入第一个数字：");
-let num2 = prompt("请输入第二个数字：");
-let operator = prompt("请输入运算符 (+, -, *, /)：");
+### 进阶练习
+1. 理解作用域和变量提升
+2. 分析内存使用情况
+3. 编写类型安全的代码
+4. 优化代码性能
 
-// 转换为数字
-num1 = Number(num1);
-num2 = Number(num2);
+## 下一步
 
-let result;
+掌握基础语法后，建议学习：
+- **[函数编程基础](./functions.md)** - 函数定义、参数、作用域、闭包
+- **[对象与面向对象](./objects.md)** - 对象创建、原型链、继承模式
 
-// 执行计算
-switch(operator) {
-    case "+":
-        result = num1 + num2;
-        break;
-    case "-":
-        result = num1 - num2;
-        break;
-    case "*":
-        result = num1 * num2;
-        break;
-    case "/":
-        if (num2 !== 0) {
-            result = num1 / num2;
-        } else {
-            result = "错误：除数不能为0";
-        }
-        break;
-    default:
-        result = "无效的运算符";
-}
-
-// 显示结果
-alert(`计算结果：${result}`);
-```
-
-## 重要概念
-
-1. **变量提升** - var声明的变量会被提升到作用域顶部
-2. **块级作用域** - let和const具有块级作用域
-3. **严格模式** - 使用"use strict"启用严格模式
-4. **类型检查** - 使用typeof检查数据类型
-
-## 最佳实践
-
-1. **优先使用let和const**
-2. **避免使用var**
-3. **使用严格比较（===）**
-4. **注意类型转换**
-5. **使用有意义的变量名**
-
-## 延伸阅读
-
-- **[MDN - 变量声明](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types#变量声明)** - var、let、const 的区别
-- **[MDN - 数据类型](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures)** - JavaScript 数据结构详解
+继续学习，加油！🚀
 
  

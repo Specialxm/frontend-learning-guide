@@ -11,7 +11,60 @@ export default defineUserConfig({
   
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
-    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }]
+    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
+    // 添加Mermaid主题切换支持
+    ['script', {}, `
+      // Mermaid主题跟随配置
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+          theme: 'default',
+          themeVariables: {
+            darkMode: false,
+            primaryColor: '#0366d6',
+            primaryTextColor: '#333333',
+            primaryBorderColor: '#e1e4e8',
+            lineColor: '#e1e4e8',
+            secondaryColor: '#586069',
+            tertiaryColor: '#f6f8fa'
+          }
+        });
+        
+        // 监听主题切换
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+              const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+              mermaid.initialize({
+                theme: isDark ? 'dark' : 'default',
+                themeVariables: {
+                  darkMode: isDark,
+                  primaryColor: isDark ? '#58a6ff' : '#0366d6',
+                  primaryTextColor: isDark ? '#c9d1d9' : '#333333',
+                  primaryBorderColor: isDark ? '#30363d' : '#e1e4e8',
+                  lineColor: isDark ? '#30363d' : '#e1e4e8',
+                  secondaryColor: isDark ? '#8b949e' : '#586069',
+                  tertiaryColor: isDark ? '#161b22' : '#f6f8fa'
+                }
+              });
+              
+              // 重新渲染所有图表
+              document.querySelectorAll('.mermaid').forEach((element) => {
+                const id = element.getAttribute('data-processed');
+                if (id) {
+                  element.removeAttribute('data-processed');
+                  mermaid.init(undefined, element);
+                }
+              });
+            }
+          });
+        });
+        
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['data-theme']
+        });
+      }
+    `]
   ],
 
   bundler: viteBundler(),
@@ -131,7 +184,6 @@ export default defineUserConfig({
     repo: 'Specialxm/frontend-learning-guide',
     editLink: true,
     lastUpdated: true,
-    // 导航栏和侧边栏的设置
     
     // 页面信息
     pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime"],
@@ -142,10 +194,14 @@ export default defineUserConfig({
     // 显示页面标题
     displayFooter: true,
     
-    // 深色模式
+    // 深色模式配置
     darkmode: "toggle",
+    
+    // Mermaid图表配置 - 支持主题切换
     markdown: {
       mermaid: true,
     },
+    
+
   }),
 }); 

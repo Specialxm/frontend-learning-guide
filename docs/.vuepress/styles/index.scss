@@ -12,3 +12,202 @@ html {
 .vuepress-theme-hope-content {
   scroll-behavior: auto !important;
 }
+
+// 自定义样式文件 - 支持Mermaid图表主题切换
+
+// 亮色主题变量
+:root {
+  --mermaid-bg-color: #ffffff;
+  --mermaid-text-color: #333333;
+  --mermaid-border-color: #e1e4e8;
+  --mermaid-primary-color: #0366d6;
+  --mermaid-secondary-color: #586069;
+  --mermaid-success-color: #28a745;
+  --mermaid-warning-color: #ffc107;
+  --mermaid-error-color: #dc3545;
+}
+
+// 深色主题变量
+[data-theme="dark"] {
+  --mermaid-bg-color: #0d1117;
+  --mermaid-text-color: #c9d1d9;
+  --mermaid-border-color: #30363d;
+  --mermaid-primary-color: #58a6ff;
+  --mermaid-secondary-color: #8b949e;
+  --mermaid-success-color: #3fb950;
+  --mermaid-warning-color: #d29922;
+  --mermaid-error-color: #f85149;
+}
+
+// Mermaid图表样式优化
+.mermaid {
+  // 确保图表响应式
+  max-width: 100%;
+  height: auto;
+  
+  // 主题跟随
+  background-color: var(--mermaid-bg-color);
+  color: var(--mermaid-text-color);
+  
+  // 图表容器样式
+  .mermaid-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  // 流程图样式
+  .flowchart {
+    .node {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+      color: var(--mermaid-text-color);
+    }
+    
+    .edgeLabel {
+      background-color: var(--mermaid-bg-color);
+      color: var(--mermaid-text-color);
+    }
+    
+    .label {
+      color: var(--mermaid-text-color);
+    }
+  }
+  
+  // 序列图样式
+  .sequence {
+    .actor {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .messageText {
+      fill: var(--mermaid-text-color);
+    }
+    
+    .noteText {
+      fill: var(--mermaid-text-color);
+    }
+  }
+  
+  // 甘特图样式
+  .gantt {
+    .gridHeader {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .gridBody {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .taskText {
+      fill: var(--mermaid-text-color);
+    }
+  }
+  
+  // 类图样式
+  .class {
+    .classGroup {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .classLabel {
+      fill: var(--mermaid-text-color);
+    }
+  }
+  
+  // 状态图样式
+  .state {
+    .stateGroup {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .stateLabel {
+      fill: var(--mermaid-text-color);
+    }
+  }
+  
+  // 饼图样式
+  .pie {
+    .pieTitleText {
+      fill: var(--mermaid-text-color);
+    }
+    
+    .slice {
+      stroke: var(--mermaid-border-color);
+    }
+  }
+  
+  // 用户旅程图样式
+  .journey {
+    .journey-node {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .journey-label {
+      fill: var(--mermaid-text-color);
+    }
+  }
+  
+  // Git图样式
+  .gitGraph {
+    .commit {
+      fill: var(--mermaid-bg-color);
+      stroke: var(--mermaid-border-color);
+    }
+    
+    .commitLabel {
+      fill: var(--mermaid-text-color);
+    }
+  }
+}
+
+// 深色模式下的特殊处理
+[data-theme="dark"] {
+  .mermaid {
+    // 深色模式下的阴影调整
+    .mermaid-container {
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    }
+    
+    // 深色模式下的边框调整
+    .flowchart .node,
+    .sequence .actor,
+    .gantt .gridHeader,
+    .gantt .gridBody,
+    .class .classGroup,
+    .state .stateGroup,
+    .journey .journey-node,
+    .gitGraph .commit {
+      stroke: var(--mermaid-border-color);
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .mermaid {
+    // 移动端优化
+    font-size: 12px;
+    
+    .mermaid-container {
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// 打印样式优化
+@media print {
+  .mermaid {
+    .mermaid-container {
+      box-shadow: none;
+      border: 1px solid #ccc;
+    }
+  }
+}

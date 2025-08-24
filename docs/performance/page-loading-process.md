@@ -399,7 +399,7 @@ flowchart TD
 ### 常见瓶颈点流程图
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[性能问题识别] --> B{问题类型}
     B -->|加载缓慢| C[网络层面问题]
     B -->|交互卡顿| D[渲染层面问题]
@@ -410,7 +410,7 @@ flowchart TD
     C --> C3[服务器响应慢]
     C --> C4[资源下载慢]
     
-    D --> D1[JavaScript执行慢]
+    D --> D1[JS执行慢]
     D --> D2[DOM操作频繁]
     D --> D3[重排重绘过多]
     

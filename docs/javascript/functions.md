@@ -1,214 +1,138 @@
 # JavaScript 函数编程
 
-函数是JavaScript中最重要的概念之一，它允许我们将代码组织成可重用的块，实现代码的模块化和抽象化。
+## 概述
+函数是JavaScript中最重要的概念之一，它是一等公民，可以赋值给变量、作为参数传递、作为返回值。掌握函数编程是理解JavaScript高级特性的基础。
+
+## 学习目标
+- 理解函数的各种定义方式和调用方式
+- 掌握参数处理、作用域和闭包概念
+- 学会使用高阶函数和函数式编程技巧
+- 为理解异步编程和模块化打下基础
 
 ## 函数基础
 
-### 1. 函数声明
+### 函数声明方式
+
+#### 1. 函数声明（Function Declaration）
 ```javascript
-// 函数声明
 function greet(name) {
     return `你好，${name}！`;
 }
+```
+**特点：** 存在函数提升，可以在声明前调用
 
-// 函数表达式
+#### 2. 函数表达式（Function Expression）
+```javascript
 const greet = function(name) {
     return `你好，${name}！`;
 };
+```
+**特点：** 不存在提升，必须先声明后调用
 
-// 箭头函数（ES6）
+#### 3. 箭头函数（Arrow Function，ES6）
+```javascript
 const greet = (name) => {
     return `你好，${name}！`;
 };
 
-// 箭头函数简写
+// 简写形式
 const greet = name => `你好，${name}！`;
-
-// 调用函数
-console.log(greet("张三")); // 你好，张三！
 ```
+**特点：** 没有自己的`this`，不能作为构造函数，语法简洁
 
-### 2. 函数参数
+#### 4. 立即执行函数（IIFE）
 ```javascript
-// 基本参数
+(function(name) {
+    console.log(`你好，${name}！`);
+})("张三");
+
+// 箭头函数版本
+((name) => {
+    console.log(`你好，${name}！`);
+})("李四");
+```
+**特点：** 创建独立作用域，避免全局污染
+
+## 参数处理
+
+### 基本参数
+```javascript
 function add(a, b) {
     return a + b;
 }
 
-// 默认参数（ES6）
+console.log(add(1, 2)); // 3
+```
+
+### 默认参数（ES6）
+```javascript
 function greet(name = "访客", greeting = "你好") {
     return `${greeting}，${name}！`;
 }
 
-console.log(greet()); // 你好，访客！
-console.log(greet("李四")); // 你好，李四！
+console.log(greet());           // 你好，访客！
+console.log(greet("李四"));     // 你好，李四！
 console.log(greet("王五", "欢迎")); // 欢迎，王五！
+```
 
-// 剩余参数（ES6）
+### 剩余参数（Rest Parameters，ES6）
+```javascript
 function sum(...numbers) {
     return numbers.reduce((total, num) => total + num, 0);
 }
 
 console.log(sum(1, 2, 3, 4, 5)); // 15
 
-// 参数解构（ES6）
+function processUser(name, age, ...hobbies) {
+    return `${name}，${age}岁，爱好：${hobbies.join('、')}`;
+}
+
+console.log(processUser("赵六", 25, "读书", "游泳", "编程"));
+// 赵六，25岁，爱好：读书、游泳、编程
+```
+
+### 参数解构（ES6）
+```javascript
 function processUser({ name, age, city = "未知" }) {
     return `${name}，${age}岁，来自${city}`;
 }
 
 const user = { name: "赵六", age: 25 };
 console.log(processUser(user)); // 赵六，25岁，来自未知
-```
 
-## 函数类型
-
-### 1. 普通函数
-```javascript
-function calculateArea(width, height) {
-    const area = width * height;
-    return area;
+// 数组解构
+function processArray([first, second, ...rest]) {
+    return `第一个：${first}，第二个：${second}，其余：${rest}`;
 }
 
-function isEven(number) {
-    return number % 2 === 0;
-}
-
-function formatCurrency(amount, currency = "CNY") {
-    return `${currency} ${amount.toFixed(2)}`;
-}
-
-// 使用函数
-const rectangleArea = calculateArea(10, 5);
-console.log(rectangleArea); // 50
-
-console.log(isEven(4)); // true
-console.log(isEven(7)); // false
-
-console.log(formatCurrency(123.456)); // CNY 123.46
-console.log(formatCurrency(99.99, "USD")); // USD 99.99
+console.log(processArray([1, 2, 3, 4, 5])); // 第一个：1，第二个：2，其余：3,4,5
 ```
 
-### 2. 箭头函数
+## 函数作用域与闭包
+
+### 作用域规则
 ```javascript
-// 基本箭头函数
-const square = x => x * x;
-const add = (a, b) => a + b;
-const greet = () => "Hello World";
+let globalVar = "全局变量";
 
-// 多行箭头函数
-const processData = (data) => {
-    const filtered = data.filter(item => item > 0);
-    const doubled = filtered.map(item => item * 2);
-    return doubled.reduce((sum, item) => sum + item, 0);
-};
-
-// 对象返回
-const createUser = (name, age) => ({
-    name,
-    age,
-    greet() {
-        return `你好，我是${this.name}`;
-    }
-});
-
-// 使用箭头函数
-console.log(square(5)); // 25
-console.log(add(3, 7)); // 10
-console.log(greet()); // Hello World
-
-const data = [1, -2, 3, -4, 5];
-console.log(processData(data)); // 18
-
-const user = createUser("张三", 25);
-console.log(user.greet()); // 你好，我是张三
-```
-
-### 3. 立即执行函数（IIFE）
-```javascript
-// 基本IIFE
-(function() {
-    console.log("立即执行函数");
-})();
-
-// 带参数的IIFE
-(function(name) {
-    console.log(`你好，${name}！`);
-})("李四");
-
-// 返回值的IIFE
-const result = (function(a, b) {
-    return a + b;
-})(5, 3);
-
-console.log(result); // 8
-
-// 模块模式
-const calculator = (function() {
-    // 私有变量
-    let history = [];
+function outer() {
+    let outerVar = "外部变量";
     
-    // 私有函数
-    function addToHistory(operation, result) {
-        history.push({ operation, result, timestamp: new Date() });
+    function inner() {
+        let innerVar = "内部变量";
+        console.log(globalVar);   // 可以访问全局变量
+        console.log(outerVar);    // 可以访问外部变量
+        console.log(innerVar);    // 可以访问内部变量
     }
     
-    // 公共接口
-    return {
-        add: function(a, b) {
-            const result = a + b;
-            addToHistory(`${a} + ${b}`, result);
-            return result;
-        },
-        
-        subtract: function(a, b) {
-            const result = a - b;
-            addToHistory(`${a} - ${b}`, result);
-            return result;
-        },
-        
-        getHistory: function() {
-            return [...history];
-        }
-    };
-})();
-
-console.log(calculator.add(10, 5)); // 15
-console.log(calculator.subtract(10, 3)); // 7
-console.log(calculator.getHistory());
-```
-
-## 函数作用域和闭包
-
-### 1. 作用域
-```javascript
-// 全局作用域
-const globalVar = "全局变量";
-
-function outerFunction() {
-    // 函数作用域
-    const outerVar = "外部变量";
-    
-    function innerFunction() {
-        // 内部函数作用域
-        const innerVar = "内部变量";
-        
-        console.log(globalVar); // 可以访问全局变量
-        console.log(outerVar);  // 可以访问外部变量
-        console.log(innerVar);  // 可以访问内部变量
-    }
-    
-    innerFunction();
-    
-    // console.log(innerVar); // 错误！无法访问内部变量
+    inner();
+    // console.log(innerVar);    // 错误：无法访问内部变量
 }
 
-outerFunction();
-// console.log(outerVar); // 错误！无法访问外部变量
+outer();
 ```
 
-### 2. 闭包
+### 闭包（Closure）
 ```javascript
-// 基本闭包
 function createCounter() {
     let count = 0;
     
@@ -218,203 +142,123 @@ function createCounter() {
     };
 }
 
-const counter1 = createCounter();
-const counter2 = createCounter();
+const counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3
+```
 
-console.log(counter1()); // 1
-console.log(counter1()); // 2
-console.log(counter2()); // 1
-console.log(counter1()); // 3
+**闭包的应用场景：**
+- 数据私有化
+- 函数工厂
+- 模块模式
+- 事件处理
 
-// 数据私有化
-function createBankAccount(initialBalance) {
-    let balance = initialBalance;
-    
-    return {
-        deposit: function(amount) {
-            if (amount > 0) {
-                balance += amount;
-                return `存款成功，余额: ${balance}`;
-            }
-            return "存款金额必须大于0";
-        },
-        
-        withdraw: function(amount) {
-            if (amount > 0 && amount <= balance) {
-                balance -= amount;
-                return `取款成功，余额: ${balance}`;
-            }
-            return "余额不足或取款金额无效";
-        },
-        
-        getBalance: function() {
-            return balance;
-        }
-    };
+### 闭包陷阱与解决方案
+```javascript
+// 常见陷阱：循环中的闭包
+for (var i = 0; i < 3; i++) {
+    setTimeout(function() {
+        console.log(i); // 输出：3, 3, 3
+    }, 1000);
 }
 
-const account = createBankAccount(1000);
-console.log(account.getBalance()); // 1000
-console.log(account.deposit(500)); // 存款成功，余额: 1500
-console.log(account.withdraw(200)); // 取款成功，余额: 1300
-// console.log(balance); // 错误！无法直接访问私有变量
+// 解决方案1：使用let（推荐）
+for (let i = 0; i < 3; i++) {
+    setTimeout(function() {
+        console.log(i); // 输出：0, 1, 2
+    }, 1000);
+}
+
+// 解决方案2：使用IIFE
+for (var i = 0; i < 3; i++) {
+    (function(index) {
+        setTimeout(function() {
+            console.log(index); // 输出：0, 1, 2
+        }, 1000);
+    })(i);
+}
 ```
 
 ## 高阶函数
 
-### 1. 函数作为参数
+### 函数作为参数
 ```javascript
-// 回调函数
-function processArray(array, callback) {
-    const result = [];
-    for (let i = 0; i < array.length; i++) {
-        result.push(callback(array[i], i, array));
-    }
-    return result;
+function processArray(arr, processor) {
+    return arr.map(processor);
 }
 
-// 使用回调函数
 const numbers = [1, 2, 3, 4, 5];
-
-const doubled = processArray(numbers, function(num) {
-    return num * 2;
-});
-
-const squared = processArray(numbers, function(num) {
-    return num * num;
-});
-
-const withIndex = processArray(numbers, function(num, index) {
-    return `${index}: ${num}`;
-});
+const doubled = processArray(numbers, x => x * 2);
+const squared = processArray(numbers, x => x ** 2);
 
 console.log(doubled); // [2, 4, 6, 8, 10]
 console.log(squared); // [1, 4, 9, 16, 25]
-console.log(withIndex); // ["0: 1", "1: 2", "2: 3", "3: 4", "5: 5"]
-
-// 条件函数
-function filterArray(array, condition) {
-    const result = [];
-    for (let i = 0; i < array.length; i++) {
-        if (condition(array[i], i, array)) {
-            result.push(array[i]);
-        }
-    }
-    return result;
-}
-
-const evenNumbers = filterArray(numbers, function(num) {
-    return num % 2 === 0;
-});
-
-const largeNumbers = filterArray(numbers, function(num) {
-    return num > 3;
-});
-
-console.log(evenNumbers); // [2, 4]
-console.log(largeNumbers); // [4, 5]
 ```
 
-### 2. 函数作为返回值
+### 函数作为返回值
 ```javascript
-// 函数工厂
-function createMultiplier(factor) {
-    return function(number) {
-        return number * factor;
+function multiply(x) {
+    return function(y) {
+        return x * y;
     };
 }
 
-const double = createMultiplier(2);
-const triple = createMultiplier(3);
-const quadruple = createMultiplier(4);
+const multiplyBy2 = multiply(2);
+const multiplyBy3 = multiply(3);
 
-console.log(double(5));   // 10
-console.log(triple(5));   // 15
-console.log(quadruple(5)); // 20
-
-// 条件函数创建器
-function createCondition(operator, value) {
-    switch (operator) {
-        case "greaterThan":
-            return function(item) {
-                return item > value;
-            };
-        case "lessThan":
-            return function(item) {
-                return item < value;
-            };
-        case "equals":
-            return function(item) {
-                return item === value;
-            };
-        default:
-            return function() {
-                return true;
-            };
-    }
-}
-
-const isGreaterThan3 = createCondition("greaterThan", 3);
-const isLessThan10 = createCondition("lessThan", 10);
-const equals5 = createCondition("equals", 5);
-
-console.log(isGreaterThan3(5)); // true
-console.log(isLessThan10(15));  // false
-console.log(equals5(5));        // true
+console.log(multiplyBy2(5)); // 10
+console.log(multiplyBy3(5)); // 15
 ```
 
-## 函数式编程
-
-### 1. 纯函数
+### 函数组合
 ```javascript
-// 纯函数 - 相同输入总是产生相同输出，无副作用
-function add(a, b) {
-    return a + b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function square(x) {
-    return x * x;
-}
-
-// 非纯函数 - 有副作用
-let total = 0;
-function addToTotal(amount) {
-    total += amount; // 修改外部状态
-    return total;
-}
-
-// 纯函数示例
-const numbers = [1, 2, 3, 4, 5];
-
-// 计算平方和
-const sumOfSquares = numbers
-    .map(square)
-    .reduce((sum, num) => sum + num, 0);
-
-console.log(sumOfSquares); // 55
-
-// 函数组合
-function compose(...functions) {
-    return function(input) {
-        return functions.reduceRight((result, fn) => fn(result), input);
+function compose(...fns) {
+    return function(x) {
+        return fns.reduceRight((result, fn) => fn(result), x);
     };
 }
 
 const addOne = x => x + 1;
 const double = x => x * 2;
-const square = x => x * x;
+const square = x => x ** 2;
 
 const composed = compose(square, double, addOne);
-console.log(composed(3)); // 64 ((3 + 1) * 2)^2
+console.log(composed(3)); // ((3 + 1) * 2)² = 64
 ```
 
-### 2. 柯里化
+## 函数式编程技巧
+
+### 纯函数
 ```javascript
-// 基本柯里化
+// 纯函数：相同输入总是产生相同输出，无副作用
+function add(a, b) {
+    return a + b;
+}
+
+// 非纯函数：有副作用
+let total = 0;
+function addToTotal(x) {
+    total += x; // 修改外部状态
+    return total;
+}
+```
+
+### 不可变性
+```javascript
+// 避免直接修改原数组
+const numbers = [1, 2, 3, 4, 5];
+
+// 错误方式：直接修改
+// numbers.push(6);
+
+// 正确方式：创建新数组
+const newNumbers = [...numbers, 6];
+const doubledNumbers = numbers.map(x => x * 2);
+```
+
+### 柯里化（Currying）
+```javascript
 function curry(fn) {
     return function curried(...args) {
         if (args.length >= fn.length) {
@@ -426,273 +270,108 @@ function curry(fn) {
     };
 }
 
-// 使用柯里化
-function add(a, b, c) {
-    return a + b + c;
-}
+const add = curry((a, b, c) => a + b + c);
+console.log(add(1)(2)(3));     // 6
+console.log(add(1, 2)(3));     // 6
+console.log(add(1, 2, 3));     // 6
+```
 
-const curriedAdd = curry(add);
+## 性能优化
 
-console.log(curriedAdd(1)(2)(3));     // 6
-console.log(curriedAdd(1, 2)(3));    // 6
-console.log(curriedAdd(1)(2, 3));    // 6
-console.log(curriedAdd(1, 2, 3));    // 6
-
-// 实用柯里化示例
-const addTax = curry(function(taxRate, amount) {
-    return amount * (1 + taxRate);
-});
-
-const addVAT = addTax(0.2); // 20% VAT
-const addSalesTax = addTax(0.08); // 8% Sales Tax
-
-console.log(addVAT(100));      // 120
-console.log(addSalesTax(100)); // 108
-
-// 部分应用
-function partial(fn, ...presetArgs) {
-    return function(...laterArgs) {
-        return fn.apply(this, presetArgs.concat(laterArgs));
+### 函数缓存
+```javascript
+function memoize(fn) {
+    const cache = new Map();
+    
+    return function(...args) {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+        
+        const result = fn.apply(this, args);
+        cache.set(key, result);
+        return result;
     };
 }
 
-const addTen = partial(add, 10);
-console.log(addTen(5, 3)); // 18 (10 + 5 + 3)
-```
-
-## 异步函数
-
-### 1. 回调函数
-```javascript
-// 传统回调模式
-function fetchData(callback) {
-    setTimeout(() => {
-        const data = { id: 1, name: "张三", age: 25 };
-        callback(null, data);
-    }, 1000);
-}
-
-// 使用回调
-fetchData(function(error, data) {
-    if (error) {
-        console.error("错误:", error);
-        return;
-    }
-    console.log("数据:", data);
+const expensiveCalculation = memoize(function(n) {
+    console.log('计算中...');
+    return n * n;
 });
 
-// 回调地狱示例
-function processUserData(userId, callback) {
-    fetchUser(userId, function(error, user) {
-        if (error) {
-            callback(error);
-            return;
+console.log(expensiveCalculation(5)); // 计算中... 25
+console.log(expensiveCalculation(5)); // 25 (从缓存获取)
+```
+
+### 防抖和节流
+```javascript
+// 防抖：延迟执行，重复调用会重置计时器
+function debounce(fn, delay) {
+    let timer = null;
+    
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+        }, delay);
+    };
+}
+
+// 节流：限制执行频率
+function throttle(fn, limit) {
+    let inThrottle = false;
+    
+    return function(...args) {
+        if (!inThrottle) {
+            fn.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
         }
-        
-        fetchUserPosts(user.id, function(error, posts) {
-            if (error) {
-                callback(error);
-                return;
-            }
-            
-            fetchUserProfile(user.id, function(error, profile) {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-                
-                callback(null, { user, posts, profile });
-            });
-        });
-    });
-}
-```
-
-### 2. Promise和async/await
-```javascript
-// Promise版本
-function fetchData() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const data = { id: 1, name: "李四", age: 30 };
-            resolve(data);
-        }, 1000);
-    });
-}
-
-// 使用Promise
-fetchData()
-    .then(data => {
-        console.log("数据:", data);
-        return fetchData(); // 链式调用
-    })
-    .then(data => {
-        console.log("第二次数据:", data);
-    })
-    .catch(error => {
-        console.error("错误:", error);
-    });
-
-// async/await版本
-async function processData() {
-    try {
-        const data1 = await fetchData();
-        console.log("第一次数据:", data1);
-        
-        const data2 = await fetchData();
-        console.log("第二次数据:", data2);
-        
-        return { data1, data2 };
-    } catch (error) {
-        console.error("处理数据时出错:", error);
-        throw error;
-    }
-}
-
-// 并行执行
-async function processDataParallel() {
-    try {
-        const [data1, data2] = await Promise.all([
-            fetchData(),
-            fetchData()
-        ]);
-        
-        console.log("并行数据:", { data1, data2 });
-        return { data1, data2 };
-    } catch (error) {
-        console.error("并行处理出错:", error);
-        throw error;
-    }
-}
-```
-
-## 函数最佳实践
-
-### 1. 命名和结构
-```javascript
-// 好的函数命名
-function calculateTotalPrice(items, taxRate) {
-    const subtotal = items.reduce((sum, item) => sum + item.price, 0);
-    const tax = subtotal * taxRate;
-    return subtotal + tax;
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function formatDate(date, format = "YYYY-MM-DD") {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    
-    return format
-        .replace("YYYY", year)
-        .replace("MM", month)
-        .replace("DD", day);
-}
-
-// 函数职责单一
-function validateUser(user) {
-    const errors = [];
-    
-    if (!user.name || user.name.trim().length === 0) {
-        errors.push("用户名不能为空");
-    }
-    
-    if (!user.email || !isValidEmail(user.email)) {
-        errors.push("邮箱格式无效");
-    }
-    
-    if (!user.age || user.age < 0 || user.age > 150) {
-        errors.push("年龄必须在0-150之间");
-    }
-    
-    return {
-        isValid: errors.length === 0,
-        errors
     };
 }
 ```
 
-### 2. 错误处理
-```javascript
-// 函数式错误处理
-function safeDivide(a, b) {
-    if (b === 0) {
-        throw new Error("除数不能为零");
-    }
-    return a / b;
-}
+## 面试重点
 
-function safeExecute(fn, ...args) {
-    try {
-        return {
-            success: true,
-            result: fn(...args),
-            error: null
-        };
-    } catch (error) {
-        return {
-            success: false,
-            result: null,
-            error: error.message
-        };
-    }
-}
+### 核心概念
+1. **函数提升：** 函数声明会被提升，函数表达式不会
+2. **闭包：** 函数能够访问其词法作用域外的变量
+3. **this指向：** 箭头函数没有自己的this，普通函数的this取决于调用方式
+4. **作用域链：** 变量查找的机制和规则
 
-// 使用安全执行
-const result1 = safeExecute(safeDivide, 10, 2);
-console.log(result1); // { success: true, result: 5, error: null }
+### 常见问题
+1. **闭包内存泄漏：** 及时清理不需要的引用
+2. **this指向问题：** 使用箭头函数或bind方法解决
+3. **函数性能：** 合理使用缓存、防抖、节流等技术
+4. **函数式编程：** 理解纯函数、不可变性等概念
 
-const result2 = safeExecute(safeDivide, 10, 0);
-console.log(result2); // { success: false, result: null, error: "除数不能为零" }
+### 实际应用
+1. **模块化开发：** 使用闭包创建私有作用域
+2. **事件处理：** 合理使用防抖和节流
+3. **数据处理：** 使用高阶函数处理数组和对象
+4. **代码复用：** 通过函数组合提高代码复用性
 
-// 函数重试机制
-async function retry(fn, maxAttempts = 3, delay = 1000) {
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-        try {
-            return await fn();
-        } catch (error) {
-            if (attempt === maxAttempts) {
-                throw error;
-            }
-            
-            console.log(`尝试 ${attempt} 失败，${delay}ms 后重试...`);
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-    }
-}
+## 实践练习
 
-// 使用重试机制
-async function fetchWithRetry() {
-    return await retry(async () => {
-        const response = await fetch("https://api.example.com/data");
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        return response.json();
-    }, 3, 1000);
-}
-```
+### 基础练习
+1. 使用不同方式定义函数
+2. 练习参数解构和剩余参数
+3. 理解闭包的概念和应用
+4. 编写高阶函数
 
-## 总结
+### 进阶练习
+1. 实现函数组合和柯里化
+2. 使用函数式编程技巧优化代码
+3. 实现防抖和节流函数
+4. 分析函数性能并优化
 
-函数是JavaScript编程的核心概念，掌握好函数的使用对于编写高质量的代码至关重要：
+## 下一步
 
-1. **基础语法** - 函数声明、表达式、箭头函数
-2. **参数处理** - 默认参数、剩余参数、参数解构
-3. **作用域闭包** - 变量作用域、闭包原理、数据私有化
-4. **高阶函数** - 函数作为参数、函数作为返回值
-5. **函数式编程** - 纯函数、函数组合、柯里化
-6. **异步处理** - 回调函数、Promise、async/await
-7. **最佳实践** - 命名规范、错误处理、性能优化
+掌握函数编程后，建议学习：
+- **[对象与面向对象](./objects.md)** - 对象创建、原型链、继承模式
+- **[数组与集合操作](./arrays.md)** - 数组方法、迭代器、数据结构
 
-## 延伸阅读
-
-- **[MDN - 函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions)** - 函数完整指南
-- **[MDN - 箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)** - 箭头函数详解
-- **[JavaScript.info - 函数](https://javascript.info/function-basics)** - 现代函数教程
+继续学习，加油！🚀
 
  

@@ -1,10 +1,17 @@
-# JavaScript DOM 操作
+# JavaScript DOM操作与事件
 
-DOM（文档对象模型）是JavaScript操作网页元素的核心API，它允许我们动态地修改网页内容、样式和结构。
+## 概述
+DOM（文档对象模型）是JavaScript操作网页元素的核心API，它允许我们动态地修改网页内容、样式和结构。掌握DOM操作是构建交互式Web应用的基础。
 
-## DOM 基础概念
+## 学习目标
+- 理解DOM树结构和节点类型
+- 掌握元素选择和操作方法
+- 学会事件绑定和处理
+- 为理解现代前端框架打下基础
 
-### 1. 什么是DOM
+## DOM基础概念
+
+### 什么是DOM
 DOM是HTML文档的编程接口，它将HTML文档表示为树形结构，每个HTML元素都是树中的一个节点。
 
 ```html
@@ -34,7 +41,7 @@ document
             └── p
 ```
 
-### 2. DOM节点类型
+### DOM节点类型
 - **元素节点** - HTML标签（如div、p、h1）
 - **文本节点** - 文本内容
 - **属性节点** - HTML属性（如id、class）
@@ -43,46 +50,53 @@ document
 
 ## 元素选择
 
-### 1. 基本选择器
+### 基本选择器
+
+#### 1. 传统方法
 ```javascript
-// 通过ID选择
+// 通过ID选择（返回单个元素）
 const element = document.getElementById("myId");
 
-// 通过类名选择
+// 通过类名选择（返回HTMLCollection）
 const elements = document.getElementsByClassName("myClass");
 
-// 通过标签名选择
+// 通过标签名选择（返回HTMLCollection）
 const paragraphs = document.getElementsByTagName("p");
-
-// 通过CSS选择器选择
-const element = document.querySelector(".myClass");
-const elements = document.querySelectorAll(".myClass");
-
-// 通过属性选择
-const elements = document.querySelectorAll("[data-type='button']");
 ```
 
-### 2. 选择器示例
+#### 2. 现代选择器（推荐）
 ```javascript
-// 选择所有按钮
-const buttons = document.querySelectorAll("button");
-
-// 选择特定类名的div
-const containers = document.querySelectorAll("div.container");
-
 // 选择第一个匹配的元素
-const firstButton = document.querySelector("button");
+const element = document.querySelector(".myClass");
 
-// 选择特定属性的元素
+// 选择所有匹配的元素（返回NodeList）
+const elements = document.querySelectorAll(".myClass");
+
+// 复杂选择器
+const buttons = document.querySelectorAll("button.primary");
 const requiredInputs = document.querySelectorAll("input[required]");
-
-// 选择子元素
 const listItems = document.querySelectorAll("ul > li");
+```
+
+### 选择器性能对比
+```javascript
+// 性能从高到低排序
+document.getElementById("id");           // 最快
+document.getElementsByClassName("class"); // 快
+document.getElementsByTagName("tag");    // 快
+document.querySelector(".class");        // 中等
+document.querySelectorAll(".class");     // 较慢
+
+// 缓存选择结果
+const container = document.querySelector(".container");
+const buttons = container.querySelectorAll("button");
 ```
 
 ## 元素操作
 
-### 1. 创建和添加元素
+### 创建和添加元素
+
+#### 基本操作
 ```javascript
 // 创建新元素
 const newDiv = document.createElement("div");
@@ -98,137 +112,167 @@ document.body.appendChild(newDiv);
 // 插入到指定位置
 const container = document.getElementById("container");
 container.insertBefore(newParagraph, container.firstChild);
-
-// 替换元素
-const oldElement = document.getElementById("old");
-const newElement = document.createElement("span");
-newElement.textContent = "新元素";
-oldElement.parentNode.replaceChild(newElement, oldElement);
 ```
 
-### 2. 删除元素
+#### 现代方法
 ```javascript
-// 删除子元素
-const parent = document.getElementById("parent");
-const child = document.getElementById("child");
-parent.removeChild(child);
+// 使用insertAdjacentHTML
+container.insertAdjacentHTML('beforeend', '<p>新段落</p>');
 
-// 删除自身
-const element = document.getElementById("toRemove");
-element.remove();
-
-// 清空容器
-const container = document.getElementById("container");
-container.innerHTML = "";
+// 使用insertAdjacentElement
+const newElement = document.createElement('span');
+newElement.textContent = '新元素';
+container.insertAdjacentElement('afterbegin', newElement);
 ```
 
-## 属性操作
+### 元素属性操作
 
-### 1. 基本属性操作
+#### 基本属性
 ```javascript
-const element = document.getElementById("myElement");
+const element = document.querySelector("#myElement");
 
-// 获取属性
-const id = element.getAttribute("id");
-const className = element.className;
-
-// 设置属性
-element.setAttribute("data-value", "123");
-element.className = "new-class";
+// 获取和设置属性
+console.log(element.id);                    // 获取ID
+element.id = "newId";                       // 设置ID
+element.setAttribute("data-value", "123");  // 设置自定义属性
+console.log(element.getAttribute("data-value")); // 获取自定义属性
 
 // 检查属性
-const hasClass = element.hasAttribute("class");
+console.log(element.hasAttribute("class")); // 检查是否有class属性
 
 // 删除属性
 element.removeAttribute("data-value");
-
-// 直接访问标准属性
-element.id = "newId";
-element.title = "新标题";
 ```
 
-### 2. 类名操作
+#### 类名操作
 ```javascript
-const element = document.getElementById("myElement");
+const element = document.querySelector(".myClass");
 
 // 添加类
-element.classList.add("active", "highlighted");
+element.classList.add("newClass", "anotherClass");
 
 // 删除类
-element.classList.remove("inactive");
+element.classList.remove("oldClass");
 
 // 切换类
-element.classList.toggle("selected");
+element.classList.toggle("active");
 
 // 检查类
 if (element.classList.contains("active")) {
-    console.log("元素处于激活状态");
+    console.log("元素有active类");
 }
 
 // 替换类
-element.classList.replace("old-class", "new-class");
+element.classList.replace("oldClass", "newClass");
 ```
 
-## 内容操作
+### 元素内容操作
 
-### 1. 文本内容
+#### 文本内容
 ```javascript
-const element = document.getElementById("content");
+const element = document.querySelector("#content");
 
 // 获取文本内容
-const text = element.textContent;
-const innerText = element.innerText;
+console.log(element.textContent);  // 纯文本，不包含HTML标签
 
 // 设置文本内容
 element.textContent = "新的文本内容";
 
 // 获取HTML内容
-const html = element.innerHTML;
+console.log(element.innerHTML);    // 包含HTML标签
 
 // 设置HTML内容
-element.innerHTML = "<span>HTML内容</span>";
+element.innerHTML = "<strong>粗体</strong>文本";
 ```
 
-### 2. 表单元素
+#### 表单元素
 ```javascript
-const input = document.getElementById("username");
-const textarea = document.getElementById("description");
-const select = document.getElementById("country");
+const input = document.querySelector("input");
+const textarea = document.querySelector("textarea");
+const select = document.querySelector("select");
 
-// 获取值
-const username = input.value;
-const description = textarea.value;
-const country = select.value;
+// 获取和设置值
+console.log(input.value);
+input.value = "新值";
 
-// 设置值
-input.value = "新用户名";
-textarea.value = "新的描述";
-select.value = "中国";
+// 检查表单状态
+console.log(input.checked);        // 复选框/单选框
+console.log(input.disabled);       // 是否禁用
+console.log(input.readOnly);       // 是否只读
+```
 
-// 检查状态
-if (input.checked) {
-    console.log("复选框已选中");
+## DOM遍历
+
+### 节点关系
+
+#### 父子关系
+```javascript
+const element = document.querySelector(".child");
+
+// 父节点
+console.log(element.parentNode);
+console.log(element.parentElement);
+
+// 子节点
+console.log(element.childNodes);      // 包含文本节点
+console.log(element.children);        // 只包含元素节点
+console.log(element.firstChild);      // 第一个子节点
+console.log(element.lastChild);       // 最后一个子节点
+console.log(element.firstElementChild); // 第一个子元素
+console.log(element.lastElementChild);  // 最后一个子元素
+```
+
+#### 兄弟关系
+```javascript
+const element = document.querySelector(".middle");
+
+// 兄弟节点
+console.log(element.previousSibling);     // 前一个兄弟节点
+console.log(element.nextSibling);         // 后一个兄弟节点
+console.log(element.previousElementSibling); // 前一个兄弟元素
+console.log(element.nextElementSibling);     // 后一个兄弟元素
+```
+
+### 遍历方法
+```javascript
+// 遍历所有子元素
+const container = document.querySelector(".container");
+Array.from(container.children).forEach(child => {
+    console.log(child.tagName);
+});
+
+// 查找特定子元素
+const button = container.querySelector("button");
+const input = container.querySelector("input");
+
+// 查找祖先元素
+function findAncestor(element, selector) {
+    let parent = element.parentElement;
+    while (parent) {
+        if (parent.matches(selector)) {
+            return parent;
+        }
+        parent = parent.parentElement;
+    }
+    return null;
 }
 
-if (input.disabled) {
-    console.log("输入框已禁用");
-}
+const ancestor = findAncestor(button, ".ancestor");
 ```
 
 ## 样式操作
 
-### 1. 内联样式
+### 内联样式
 ```javascript
-const element = document.getElementById("myElement");
+const element = document.querySelector("#styled");
+
+// 获取样式
+console.log(element.style.backgroundColor);
 
 // 设置样式
 element.style.backgroundColor = "red";
 element.style.fontSize = "16px";
 element.style.marginTop = "10px";
-
-// 获取样式
-const bgColor = element.style.backgroundColor;
-const fontSize = element.style.fontSize;
 
 // 批量设置样式
 Object.assign(element.style, {
@@ -238,338 +282,237 @@ Object.assign(element.style, {
 });
 ```
 
-### 2. 计算样式
+### 计算样式
 ```javascript
-const element = document.getElementById("myElement");
+const element = document.querySelector("#element");
 
 // 获取计算后的样式
 const computedStyle = window.getComputedStyle(element);
-const bgColor = computedStyle.backgroundColor;
-const fontSize = computedStyle.fontSize;
+console.log(computedStyle.backgroundColor);
+console.log(computedStyle.fontSize);
 
-// 获取特定样式
-const width = computedStyle.width;
-const height = computedStyle.height;
-const margin = computedStyle.margin;
+// 获取特定样式值
+const width = computedStyle.getPropertyValue("width");
+const height = computedStyle.getPropertyValue("height");
+```
+
+### CSS类操作
+```javascript
+const element = document.querySelector(".element");
+
+// 添加CSS类
+element.classList.add("highlight", "animated");
+
+// 删除CSS类
+element.classList.remove("old-style");
+
+// 切换CSS类
+element.classList.toggle("active");
+
+// 检查CSS类
+if (element.classList.contains("primary")) {
+    element.classList.add("focused");
+}
 ```
 
 ## 事件处理
 
-### 1. 基本事件绑定
+### 事件绑定
+
+#### 传统方式
 ```javascript
-const button = document.getElementById("myButton");
-
-// 添加事件监听器
-button.addEventListener("click", function(event) {
-    console.log("按钮被点击了");
-    console.log("事件对象:", event);
-});
-
-// 移除事件监听器
-const clickHandler = function(event) {
-    console.log("点击事件");
-};
-button.addEventListener("click", clickHandler);
-button.removeEventListener("click", clickHandler);
+const button = document.querySelector("button");
 
 // 内联事件（不推荐）
-button.onclick = function() {
-    console.log("内联事件");
+// <button onclick="handleClick()">点击</button>
+
+// 属性绑定
+button.onclick = function(event) {
+    console.log("按钮被点击了");
+    console.log(event);
 };
+
+// 移除事件
+button.onclick = null;
 ```
 
-### 2. 常用事件类型
+#### 现代方式（推荐）
 ```javascript
-const element = document.getElementById("myElement");
+const button = document.querySelector("button");
 
-// 鼠标事件
-element.addEventListener("click", handleClick);
-element.addEventListener("dblclick", handleDoubleClick);
-element.addEventListener("mouseenter", handleMouseEnter);
-element.addEventListener("mouseleave", handleMouseLeave);
-element.addEventListener("mousemove", handleMouseMove);
+// addEventListener
+function handleClick(event) {
+    console.log("按钮被点击了", event);
+}
 
-// 键盘事件
-element.addEventListener("keydown", handleKeyDown);
-element.addEventListener("keyup", handleKeyUp);
-element.addEventListener("keypress", handleKeyPress);
+button.addEventListener("click", handleClick);
 
-// 表单事件
-element.addEventListener("submit", handleSubmit);
-element.addEventListener("change", handleChange);
-element.addEventListener("input", handleInput);
-element.addEventListener("focus", handleFocus);
-element.addEventListener("blur", handleBlur);
+// 移除事件
+button.removeEventListener("click", handleClick);
 
-// 文档事件
-document.addEventListener("DOMContentLoaded", handleDOMReady);
-window.addEventListener("load", handleLoad);
-window.addEventListener("resize", handleResize);
-window.addEventListener("scroll", handleScroll);
+// 一次性事件
+button.addEventListener("click", function() {
+    console.log("这个事件只会触发一次");
+}, { once: true });
 ```
 
-## 事件委托
-
-### 1. 事件委托原理
-事件委托利用事件冒泡机制，将事件监听器添加到父元素上，统一处理子元素的事件。
-
+### 事件对象
 ```javascript
-// 传统方式 - 为每个按钮添加事件
-const buttons = document.querySelectorAll("button");
-buttons.forEach(button => {
-    button.addEventListener("click", handleClick);
-});
-
-// 事件委托 - 在父元素上监听
-const container = document.getElementById("buttonContainer");
-container.addEventListener("click", function(event) {
-    if (event.target.tagName === "BUTTON") {
-        handleClick(event);
-    }
-});
-```
-
-### 2. 事件委托示例
-```javascript
-// 动态列表的事件委托
-const list = document.getElementById("todoList");
-
-list.addEventListener("click", function(event) {
-    const target = event.target;
+function handleEvent(event) {
+    // 事件类型
+    console.log(event.type);           // "click"
     
-    if (target.classList.contains("delete-btn")) {
-        // 删除按钮被点击
-        deleteTodoItem(target.closest("li"));
-    } else if (target.classList.contains("complete-btn")) {
-        // 完成按钮被点击
-        completeTodoItem(target.closest("li"));
-    } else if (target.tagName === "LI") {
-        // 列表项被点击
-        selectTodoItem(target);
-    }
-});
-
-// 表单提交的事件委托
-const form = document.getElementById("todoForm");
-form.addEventListener("submit", function(event) {
+    // 目标元素
+    console.log(event.target);         // 触发事件的元素
+    console.log(event.currentTarget);  // 绑定事件的元素
+    
+    // 鼠标事件
+    console.log(event.clientX, event.clientY); // 鼠标位置
+    console.log(event.pageX, event.pageY);     // 页面位置
+    
+    // 键盘事件
+    console.log(event.key);            // 按键
+    console.log(event.code);           // 按键代码
+    
+    // 阻止默认行为
     event.preventDefault();
     
-    const input = form.querySelector("input[type='text']");
-    const text = input.value.trim();
-    
-    if (text) {
-        addTodoItem(text);
-        input.value = "";
+    // 阻止事件冒泡
+    event.stopPropagation();
+}
+```
+
+### 事件委托
+```javascript
+// 为父元素绑定事件，处理子元素的事件
+const list = document.querySelector("ul");
+
+list.addEventListener("click", function(event) {
+    if (event.target.tagName === "LI") {
+        console.log("列表项被点击:", event.target.textContent);
+        event.target.classList.toggle("selected");
     }
 });
+
+// 动态添加的元素也会自动绑定事件
+const newItem = document.createElement("li");
+newItem.textContent = "新项目";
+list.appendChild(newItem);
 ```
 
 ## 性能优化
 
-### 1. 减少DOM查询
+### 减少DOM查询
 ```javascript
-// 不好的做法 - 重复查询DOM
+// 不好的做法
 function updateElements() {
-    document.getElementById("title").textContent = "新标题";
-    document.getElementById("title").style.color = "red";
-    document.getElementById("title").classList.add("highlight");
+    for (let i = 0; i < 100; i++) {
+        const element = document.querySelector(`#item-${i}`);
+        element.textContent = `项目 ${i}`;
+    }
 }
 
-// 好的做法 - 缓存DOM引用
+// 好的做法
 function updateElements() {
-    const title = document.getElementById("title");
-    title.textContent = "新标题";
-    title.style.color = "red";
-    title.classList.add("highlight");
-}
-```
-
-### 2. 批量DOM操作
-```javascript
-// 不好的做法 - 逐个操作DOM
-function addItems(items) {
-    items.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        document.getElementById("list").appendChild(li);
+    const elements = document.querySelectorAll("[id^='item-']");
+    elements.forEach((element, index) => {
+        element.textContent = `项目 ${index}`;
     });
 }
-
-// 好的做法 - 批量操作DOM
-function addItems(items) {
-    const fragment = document.createDocumentFragment();
-    
-    items.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        fragment.appendChild(li);
-    });
-    
-    document.getElementById("list").appendChild(fragment);
-}
 ```
 
-## 实际应用示例
-
-### 1. 动态表单验证
+### 批量DOM操作
 ```javascript
-const form = document.getElementById("contactForm");
-const inputs = form.querySelectorAll("input[required]");
-
-// 实时验证
-inputs.forEach(input => {
-    input.addEventListener("blur", validateField);
-    input.addEventListener("input", clearError);
-});
-
-function validateField(event) {
-    const input = event.target;
-    const value = input.value.trim();
-    const fieldName = input.getAttribute("data-field");
-    
-    if (!value) {
-        showError(input, `${fieldName}不能为空`);
-        return false;
-    }
-    
-    // 特定字段验证
-    if (fieldName === "email" && !isValidEmail(value)) {
-        showError(input, "请输入有效的邮箱地址");
-        return false;
-    }
-    
-    if (fieldName === "phone" && !isValidPhone(value)) {
-        showError(input, "请输入有效的手机号码");
-        return false;
-    }
-    
-    clearError(input);
-    return true;
+// 不好的做法
+const container = document.querySelector(".container");
+for (let i = 0; i < 100; i++) {
+    const div = document.createElement("div");
+    div.textContent = `项目 ${i}`;
+    container.appendChild(div); // 每次都会触发重排
 }
 
-function showError(input, message) {
-    clearError(input);
-    
-    const error = document.createElement("div");
-    error.className = "error-message";
-    error.textContent = message;
-    error.style.color = "red";
-    error.style.fontSize = "12px";
-    
-    input.parentNode.appendChild(error);
+// 好的做法
+const container = document.querySelector(".container");
+const fragment = document.createDocumentFragment();
+
+for (let i = 0; i < 100; i++) {
+    const div = document.createElement("div");
+    div.textContent = `项目 ${i}`;
+    fragment.appendChild(div);
 }
 
-function clearError(input) {
-    const existingError = input.parentNode.querySelector(".error-message");
-    if (existingError) {
-        existingError.remove();
-    }
-}
+container.appendChild(fragment); // 只触发一次重排
 ```
 
-### 2. 动态内容加载
+### 防抖和节流
 ```javascript
-class ContentLoader {
-    constructor(containerId) {
-        this.container = document.getElementById(containerId);
-        this.loading = false;
-    }
-    
-    async loadContent(url) {
-        if (this.loading) return;
-        
-        this.loading = true;
-        this.showLoading();
-        
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            this.renderContent(data);
-        } catch (error) {
-            this.showError(error.message);
-        } finally {
-            this.loading = false;
-            this.hideLoading();
+// 防抖：延迟执行，重复调用会重置计时器
+function debounce(func, delay) {
+    let timer = null;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// 节流：限制执行频率
+function throttle(func, limit) {
+    let inThrottle = false;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
         }
-    }
-    
-    showLoading() {
-        this.container.innerHTML = '<div class="loading">加载中...</div>';
-    }
-    
-    hideLoading() {
-        const loading = this.container.querySelector(".loading");
-        if (loading) {
-            loading.remove();
-        }
-    }
-    
-    showError(message) {
-        this.container.innerHTML = `<div class="error">加载失败: ${message}</div>`;
-    }
-    
-    renderContent(data) {
-        if (Array.isArray(data)) {
-            this.renderList(data);
-        } else {
-            this.renderDetail(data);
-        }
-    }
-    
-    renderList(items) {
-        const html = items.map(item => `
-            <div class="item" data-id="${item.id}">
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-            </div>
-        `).join("");
-        
-        this.container.innerHTML = html;
-        
-        // 添加点击事件
-        this.container.addEventListener("click", this.handleItemClick.bind(this));
-    }
-    
-    renderDetail(item) {
-        this.container.innerHTML = `
-            <div class="detail">
-                <h2>${item.title}</h2>
-                <p>${item.content}</p>
-                <button onclick="history.back()">返回</button>
-            </div>
-        `;
-    }
-    
-    handleItemClick(event) {
-        const item = event.target.closest(".item");
-        if (item) {
-            const id = item.dataset.id;
-            this.loadContent(`/api/items/${id}`);
-        }
-    }
+    };
 }
 
 // 使用示例
-const loader = new ContentLoader("content");
-loader.loadContent("/api/items");
+const handleScroll = throttle(function() {
+    console.log("滚动事件");
+}, 100);
+
+window.addEventListener("scroll", handleScroll);
 ```
 
-## 总结
+## 面试重点
 
-DOM操作是前端开发的核心技能，掌握好DOM操作对于构建交互式网页应用至关重要：
+### 核心概念
+1. **DOM树结构：** 理解HTML文档的树形表示
+2. **节点类型：** 元素节点、文本节点、属性节点等
+3. **事件机制：** 事件捕获、目标、冒泡三个阶段
+4. **性能优化：** 减少DOM查询、批量操作、事件委托等
 
-1. **基础概念** - DOM树结构、节点类型
-2. **元素操作** - 选择、创建、修改、删除元素
-3. **属性操作** - 获取、设置、删除属性
-4. **内容操作** - 文本内容、HTML内容、表单值
-5. **样式操作** - 内联样式、计算样式
-6. **事件处理** - 事件绑定、事件委托
-7. **性能优化** - 减少DOM查询、批量操作
-8. **实际应用** - 表单验证、动态内容加载
+### 常见问题
+1. **事件冒泡和捕获：** 理解事件传播机制
+2. **内存泄漏：** 及时移除事件监听器
+3. **重排和重绘：** 优化DOM操作性能
+4. **跨浏览器兼容性：** 处理不同浏览器的差异
 
-## 延伸阅读
+### 实际应用
+1. **动态内容：** 根据用户操作动态更新页面
+2. **表单验证：** 实时验证用户输入
+3. **交互效果：** 实现各种用户交互功能
+4. **性能监控：** 监控页面性能指标
 
-- **[MDN - DOM](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)** - DOM API 详解
-- **[MDN - 事件](https://developer.mozilla.org/zh-CN/docs/Web/Events)** - 事件处理指南
-- **[JavaScript.info - DOM](https://javascript.info/dom)** - 现代DOM教程 
+## 实践练习
+
+### 基础练习
+1. 使用不同方法选择和操作DOM元素
+2. 实现简单的表单验证
+3. 练习事件绑定和处理
+4. 理解DOM遍历和节点关系
+
+### 进阶练习
+1. 实现事件委托处理动态元素
+2. 优化DOM操作的性能
+3. 构建可复用的DOM组件
+4. 分析框架源码中的DOM操作
+
+## 下一步
+
+掌握DOM操作与事件后，建议学习：
+- **[事件系统详解](./events.md)** - 事件机制、事件委托、自定义事件
+- **[ES6+现代特性](./es6.md)** - 模块系统、解构赋值、Promise基础
+
+继续学习，加油！🚀 
