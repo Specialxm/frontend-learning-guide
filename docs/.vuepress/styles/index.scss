@@ -1,0 +1,14 @@
+/* 禁用平滑滚动 */
+html {
+  scroll-behavior: auto !important;
+}
+
+/* 确保所有滚动容器都使用即时滚动 */
+* {
+  scroll-behavior: auto !important;
+}
+
+/* 针对 VuePress 路由切换时的滚动行为 */
+.vuepress-theme-hope-content {
+  scroll-behavior: auto !important;
+}

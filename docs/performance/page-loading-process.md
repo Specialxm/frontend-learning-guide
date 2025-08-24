@@ -8,6 +8,7 @@
 
 ```mermaid
 graph TD
+    %% 主要流程 - 突出显示，使用更紧凑的布局
     A[用户输入URL] --> B[DNS解析]
     B --> C[TCP连接建立]
     C --> D[发送HTTP请求]
@@ -18,12 +19,9 @@ graph TD
     H --> I[页面渲染完成]
     I --> J[用户交互响应]
     
-    B --> B1[DNS缓存检查]
-    B1 --> B2[本地DNS服务器]
-    B2 --> B3[根DNS服务器]
-    B3 --> B4[顶级域DNS服务器]
-    B4 --> B5[权威DNS服务器]
-    B5 --> B6[返回IP地址]
+    %% 子流程 - 左右分布，减少垂直空间
+    B --> B1[DNS查询]
+    B1 --> B2[返回IP地址]
     
     C --> C1[三次握手]
     C1 --> C2[SSL/TLS握手]
@@ -34,25 +32,36 @@ graph TD
     G --> G4[合并渲染树]
     
     H --> H1[JavaScript执行]
-    H --> H2[图片加载]
-    H --> H3[字体加载]
-    H --> H4[第三方资源]
+    H --> H2[资源加载]
     
     I --> I1[布局计算]
-    I --> I2[绘制]
-    I --> I3[合成]
-    I --> I4[显示]
+    I --> I2[绘制合成]
     
-    style A fill:#e1f5fe
-    style J fill:#c8e6c9
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#fff3e0
-    style E fill:#fff3e0
-    style F fill:#fff3e0
-    style G fill:#f3e5f5
-    style H fill:#f3e5f5
-    style I fill:#f3e5f5
+    %% 样式设置 - 主要流程突出，子流程淡化
+    style A fill:#e1f5fe,stroke:#0277bd,stroke-width:3px,font-weight:bold
+    style B fill:#fff3e0,stroke:#f57c00,stroke-width:2px,font-weight:bold
+    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px,font-weight:bold
+    style D fill:#fff3e0,stroke:#f57c00,stroke-width:2px,font-weight:bold
+    style E fill:#fff3e0,stroke:#f57c00,stroke-width:2px,font-weight:bold
+    style F fill:#fff3e0,stroke:#f57c00,stroke-width:2px,font-weight:bold
+    style G fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,font-weight:bold
+    style H fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,font-weight:bold
+    style I fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,font-weight:bold
+    style J fill:#c8e6c9,stroke:#388e3c,stroke-width:3px,font-weight:bold
+    
+    %% 子流程样式 - 淡化处理
+    style B1 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
+    style B2 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
+    style C1 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
+    style C2 fill:#fff8e1,stroke:#f57c00,stroke-width:1px,font-size:12px
+    style G1 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style G2 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style G3 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style G4 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style H1 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style H2 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style I1 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
+    style I2 fill:#f8f5ff,stroke:#7b1fa2,stroke-width:1px,font-size:12px
 ```
 
 ## 1. 输入URL阶段
@@ -72,7 +81,7 @@ graph TD
 ### DNS查询流程图
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[用户输入: www.example.com] --> B[本地DNS缓存检查]
     B --> C{缓存命中?}
     C -->|是| D[返回IP地址]
@@ -255,7 +264,7 @@ flowchart TD
 ### 资源加载流程图
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[开始资源加载] --> B{资源类型}
     B -->|JavaScript| C[JS解析和执行]
     B -->|CSS| D[CSS解析和构建]
@@ -337,7 +346,7 @@ flowchart TD
 ### 交互处理流程图
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[用户操作] --> B[事件触发]
     B --> C[事件捕获]
     C --> D[事件处理]

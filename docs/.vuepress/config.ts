@@ -1,27 +1,42 @@
-module.exports = {
-  title: '前端学习指南',
-  description: 'HTML、CSS、JavaScript 完整学习教程',
-  base: '/frontend-learning-guide/',
+import { defineUserConfig } from "vuepress";
+import { hopeTheme } from "vuepress-theme-hope";
+import { viteBundler } from "@vuepress/bundler-vite";
+
+export default defineUserConfig({
+  lang: "zh-CN",
+  title: "前端学习指南",
+  description: "HTML、CSS、JavaScript 完整学习教程",
+  base: "/frontend-learning-guide/",
+  
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }]
   ],
-  
-  themeConfig: {
-    nav: [
+
+  bundler: viteBundler(),
+
+  theme: hopeTheme({
+    // 主题配置
+    navbar: [
       { text: '首页', link: '/' },
       { text: 'HTML', link: '/html/' },
       { text: 'CSS', link: '/css/' },
       { text: 'JavaScript', link: '/javascript/' },
-      { text: 'Vue 3.0', link: '/vue3/' },
       { text: '性能优化', link: '/performance/' }
     ],
-    
+
     sidebar: {
+      '/': [
+        {
+          text: '指南',
+          children: [
+            '/'
+          ]
+        }
+      ],
       '/html/': [
         {
-          title: 'HTML 基础',
-          collapsable: false,
+          text: 'HTML 基础',
           children: [
             '/html/',
             '/html/basic-structure',
@@ -34,8 +49,7 @@ module.exports = {
       ],
       '/css/': [
         {
-          title: 'CSS 样式',
-          collapsable: false,
+          text: 'CSS 样式',
           children: [
             '/css/',
             '/css/selectors',
@@ -50,8 +64,7 @@ module.exports = {
       ],
       '/javascript/': [
         {
-          title: 'JavaScript 编程',
-          collapsable: false,
+          text: 'JavaScript 编程',
           children: [
             '/javascript/',
             '/javascript/basics',
@@ -67,8 +80,7 @@ module.exports = {
       ],
       '/performance/': [
         {
-          title: '前端性能优化指南',
-          collapsable: false,
+          text: '前端性能优化指南',
           children: [
             '/performance/',
             '/performance/overview',
@@ -83,40 +95,26 @@ module.exports = {
         }
       ]
     },
-    
+
+    // 其他主题配置
     repo: 'Specialxm/frontend-learning-guide',
-    repoLabel: '给作者的 Github 点个 star 吧！',
-    editLinks: true,
-    editLinkText: '在 GitHub 上编辑此页',
-    lastUpdated: '最后更新',
-    
+    editLink: true,
+    lastUpdated: true,
     // 导航栏和侧边栏的设置
-    smoothScroll: false,
-    search: true,
-    searchMaxSuggestions: 10,
     
-    // 下一页和上一页的链接
-    nextLinks: true,
-    prevLinks: true
-  },
-  
-  plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
-    [
-      '@vuepress/plugin-last-updated',
-      {
-        transformer: (timestamp, lang) => {
-          const moment = require('moment')
-          moment.locale(lang)
-          return moment(timestamp).fromNow()
-        }
-      }
-    ]
-  ],
-  
-  markdown: {
-    lineNumbers: true,
-    extractHeaders: ['h2', 'h3', 'h4']
-  }
-} 
+    // 页面信息
+    pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime"],
+    
+    // 页脚
+    footer: "MIT Licensed | Copyright © 2024-present",
+    
+    // 显示页面标题
+    displayFooter: true,
+    
+    // 深色模式
+    darkmode: "toggle",
+    markdown: {
+      mermaid: true,
+    },
+  }),
+}); 
