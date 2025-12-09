@@ -789,4 +789,4 @@ CSS Grid是现代CSS布局的强大工具，掌握Grid能够帮助我们：
 掌握了CSS Grid后，建议继续学习：
 - [响应式设计](./responsive.md) - 学会适配不同设备和屏幕
 - [CSS动画](./animations.md) - 创建流畅的用户交互体验
-- [CSS性能优化](./performance.md) - 提升页面性能 
+- [CSS性能优化](/performance/) - 提升页面性能 

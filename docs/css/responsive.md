@@ -971,5 +971,5 @@ CSS响应式设计是现代Web开发的重要技能，掌握响应式设计能�
 
 掌握了CSS响应式设计后，建议继续学习：
 - [CSS动画](./animations.md) - 创建流畅的用户交互体验
-- [CSS性能优化](./performance.md) - 提升页面性能
-- [CSS工程化](./engineering.md) - 学习项目工程化实践 
+- [CSS性能优化](/performance/) - 提升页面性能
+- [CSS工程化](/engineering/) - 学习项目工程化实践 

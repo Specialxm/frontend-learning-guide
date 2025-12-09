@@ -1,3 +1,10 @@
+---
+title: JavaScript核心基础 - 变量、数据类型、运算符详解
+description: 从零开始学习JavaScript基础语法，包括变量声明、数据类型、运算符、控制结构等核心概念，为JavaScript编程打下坚实基础。
+keywords: JavaScript基础,变量声明,数据类型,运算符,控制结构,JavaScript语法,编程基础
+date: 2024-01-01
+---
+
 # JavaScript 核心基础
 
 ## 概述

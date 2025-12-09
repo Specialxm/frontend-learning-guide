@@ -1,9 +1,6 @@
 import { defineUserConfig } from "vuepress";
 import { hopeTheme } from "vuepress-theme-hope";
 import { viteBundler } from "@vuepress/bundler-vite";
-import { searchPlugin } from "@vuepress/plugin-search";
-import { sitemapPlugin } from "@vuepress/plugin-sitemap";
-import { seoPlugin } from "@vuepress/plugin-seo";
 
 export default defineUserConfig({
   lang: "zh-CN",
@@ -38,26 +35,66 @@ export default defineUserConfig({
     ['meta', { name: 'twitter:description', content: '零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术' }],
     ['meta', { name: 'twitter:image', content: '/og-image.png' }],
     
-    // 结构化数据 - JSON-LD
+    // 结构化数据 - JSON-LD (网站级别)
     ['script', { type: 'application/ld+json' }, JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "前端学习指南",
-      "description": "零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术",
+      "alternateName": "Frontend Learning Guide",
+      "description": "零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术，实战项目驱动，面试重点突出",
       "url": "https://specialxm.github.io/frontend-learning-guide/",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://specialxm.github.io/frontend-learning-guide/?q={search_term_string}",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://specialxm.github.io/frontend-learning-guide/?q={search_term_string}"
+        },
         "query-input": "required name=search_term_string"
       },
       "publisher": {
+        "@type": "Organization",
+        "name": "Specialxm",
+        "url": "https://github.com/Specialxm",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://specialxm.github.io/frontend-learning-guide/logo.png"
+        }
+      },
+      "inLanguage": "zh-CN",
+      "isAccessibleForFree": true,
+      "license": "https://opensource.org/licenses/MIT",
+      "keywords": "前端开发,HTML,CSS,JavaScript,Vue3,性能优化,前端工程化,前端教程,前端学习,前端面试",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student"
+      }
+    })],
+    
+    // 结构化数据 - EducationalCourse (课程类型)
+    ['script', { type: 'application/ld+json' }, JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "前端学习指南",
+      "description": "完整的前端开发课程，从HTML、CSS、JavaScript基础到Vue3、性能优化、工程化等高级技术",
+      "provider": {
         "@type": "Organization",
         "name": "Specialxm",
         "url": "https://github.com/Specialxm"
       },
       "inLanguage": "zh-CN",
       "isAccessibleForFree": true,
-      "license": "https://opensource.org/licenses/MIT"
+      "courseCode": "frontend-learning-guide",
+      "educationalLevel": "Beginner to Advanced",
+      "teaches": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Vue3",
+        "前端性能优化",
+        "前端工程化",
+        "TypeScript",
+        "响应式设计"
+      ]
     })],
     
     // 添加Mermaid主题切换支持
@@ -116,35 +153,6 @@ export default defineUserConfig({
   ],
 
   bundler: viteBundler(),
-
-  plugins: [
-    searchPlugin({
-      // 搜索配置
-      locales: {
-        '/': {
-          placeholder: '搜索前端学习内容...',
-        },
-      },
-      // 最大搜索建议数
-      maxSuggestions: 15,
-      // 热键
-      hotKeys: ['s', '/', 'ctrl+k'],
-    }),
-    
-    // Sitemap插件 - 自动生成站点地图
-    sitemapPlugin({
-      hostname: 'https://specialxm.github.io/frontend-learning-guide/',
-      changefreq: 'weekly'
-    }),
-    
-    // SEO插件 - 自动优化页面SEO
-    seoPlugin({
-      hostname: 'https://specialxm.github.io/frontend-learning-guide/',
-      author: 'Specialxm',
-      twitterID: 'Specialxm',
-      isArticle: (page) => page.path !== '/',
-    })
-  ],
 
   theme: hopeTheme({
     // 主题配置
@@ -336,6 +344,25 @@ export default defineUserConfig({
     
     // 插件配置
     plugins: {
+      // 搜索插件配置
+      search: {
+        locales: {
+          '/': {
+            placeholder: '搜索前端学习内容...',
+          },
+        },
+        // 最大搜索建议数
+        maxSuggestions: 15,
+        // 热键
+        hotKeys: ['s', '/', 'ctrl+k'],
+      },
+      
+      // SEO插件配置 - 主题会自动处理，只需启用即可
+      seo: true,
+      
+      // Sitemap插件配置 - 主题会自动处理，只需启用即可
+      sitemap: true,
+      
       // 复制代码
       copyCode: {
         showInMobile: true,

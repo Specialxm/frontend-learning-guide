@@ -856,6 +856,6 @@ CSS动画是现代Web开发的重要技能，掌握CSS动画能够帮助我们�
 ## 下一步
 
 掌握了CSS动画后，建议继续学习：
-- [CSS性能优化](./performance.md) - 提升页面性能
-- [CSS工程化](./engineering.md) - 学习项目工程化实践
+- [CSS性能优化](/performance/) - 提升页面性能
+- [CSS工程化](/engineering/) - 学习项目工程化实践
 - [前端性能监控](./monitoring.md) - 监控和分析页面性能 

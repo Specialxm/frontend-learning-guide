@@ -1,3 +1,10 @@
+---
+title: 前端学习指南 - 完整的前端开发教程
+description: 零基础到高级前端工程师的完整学习路径，涵盖HTML、CSS、JavaScript、Vue3、性能优化、工程化等核心技术，实战项目驱动，面试重点突出。
+keywords: 前端开发,HTML,CSS,JavaScript,Vue3,性能优化,前端工程化,前端教程,前端学习,前端面试,Web开发
+date: 2024-01-01
+---
+
 # 前端学习指南
 
 欢迎来到前端学习指南！这是一个全面的前端技术学习资源，涵盖了HTML、CSS、JavaScript等核心技术。

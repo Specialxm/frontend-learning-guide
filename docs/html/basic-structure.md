@@ -1,3 +1,10 @@
+---
+title: HTML基础结构 - 文档结构、语义化标签详解
+description: 深入学习HTML文档的基本结构，包括DOCTYPE声明、head元素、body元素等核心概念，掌握HTML5语义化标签的使用方法，提升网页SEO和可访问性。
+keywords: HTML基础,HTML结构,DOCTYPE,head元素,body元素,HTML5语义化,SEO优化,网页结构
+date: 2024-01-01
+---
+
 # HTML 基础结构
 
 HTML文档由基本的结构元素组成，这些元素定义了网页的框架和内容组织方式。
