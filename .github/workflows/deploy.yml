@@ -38,7 +38,12 @@ jobs:
             
       - name: Install dependencies
         run: |
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+          # 清理可能的缓存问题
+          rm -rf node_modules
+          # 安装依赖，使用 npm install 而不是 npm ci 以确保可选依赖被安装
+          npm install --legacy-peer-deps
+          # 确保 Rollup 的 Linux 二进制文件被安装（如果缺失）
+          npm install @rollup/rollup-linux-x64-gnu --save-optional --legacy-peer-deps || true
           
       - name: Clean build
         run: npm run clean || true
