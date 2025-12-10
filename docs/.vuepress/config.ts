@@ -152,7 +152,22 @@ export default defineUserConfig({
     `]
   ],
 
-  bundler: viteBundler(),
+  bundler: viteBundler({
+    viteOptions: {
+      build: {
+        chunkSizeWarningLimit: 2048, // 将警告限制提高到 2MB
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              // 将大型依赖拆分为单独的 chunk
+              'vue-vendor': ['vue', 'vue-router'],
+              'theme-vendor': ['vuepress-theme-hope'],
+            },
+          },
+        },
+      },
+    },
+  }),
 
   theme: hopeTheme({
     // 主题配置
@@ -362,6 +377,9 @@ export default defineUserConfig({
       
       // Sitemap插件配置 - 主题会自动处理，只需启用即可
       sitemap: true,
+      
+      // 博客功能插件
+      blog: true,
       
       // 复制代码
       copyCode: {
