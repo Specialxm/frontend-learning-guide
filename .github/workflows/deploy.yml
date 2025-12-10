@@ -44,6 +44,8 @@ jobs:
           npm install --legacy-peer-deps
           # 确保 Rollup 的 Linux 二进制文件被安装（如果缺失）
           npm install @rollup/rollup-linux-x64-gnu --save-optional --legacy-peer-deps || true
+          # 确保 Sass 的 Linux 二进制文件被安装（如果缺失）
+          npm install sass-embedded-linux-x64 --save-optional --legacy-peer-deps || true
           
       - name: Clean build
         run: npm run clean || true
