@@ -155,16 +155,7 @@ export default defineUserConfig({
   bundler: viteBundler({
     viteOptions: {
       build: {
-        chunkSizeWarningLimit: 2048, // 将警告限制提高到 2MB
-        rollupOptions: {
-          output: {
-            manualChunks: {
-              // 将大型依赖拆分为单独的 chunk
-              'vue-vendor': ['vue', 'vue-router'],
-              'theme-vendor': ['vuepress-theme-hope'],
-            },
-          },
-        },
+        chunkSizeWarningLimit: 2048, // 将警告限制提高到 2MB，让 Rollup 自动处理代码分割
       },
     },
   }),
